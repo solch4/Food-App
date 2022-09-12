@@ -12,6 +12,17 @@ export function getRecipes () {
   }
 }
 
+export function getDiets () {
+  return function (dispatch) {
+    axios
+      .get(`${baseUrl}/diets`)
+      .then(res => dispatch({
+        type: 'GET_DIETS', 
+        payload: res.data
+      }))
+  }
+}
+
 export function searchByName (name) {
   return async function (dispatch) {
     try {
@@ -26,5 +37,12 @@ export function searchByName (name) {
         payload: e.response.data
       })
     }
+  }
+}
+
+export function filterByDiet (value) {
+  return {
+    type: 'FILTER_BY_DIET',
+    payload: value
   }
 }
