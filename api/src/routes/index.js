@@ -95,7 +95,7 @@ router.get('/diets', async (req, res) => {
     });
   } */
 
-  const allDiet = allInfo.map(recipe => recipe.diet).flat()
+  const allDiet = allInfo.map(recipe => recipe.diets).flat()
   const allDietSet = new Set(allDiet)
   const allDietArray = [...allDietSet]
 

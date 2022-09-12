@@ -15,7 +15,7 @@ const getApiInfo = async () => {
       healthScore: recipe.healthScore,
       instructions: recipe.analyzedInstructions[0]?.steps.map(step => step.step),
       // diets: recipe.diets.map(diet => diet[0].toUpperCase() + diet.slice(1)).join(', ')
-      diets: recipe.diets // no sé si debería ser un string o array, dsp vamo viendo
+      diets: recipe.diets.map(diet => diet[0].toUpperCase() + diet.slice(1)) // no sé si debería ser un string o array, dsp vamo viendo
     }
   })
   return apiInfo
