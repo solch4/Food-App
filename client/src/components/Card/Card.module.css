@@ -1,0 +1,14 @@
+.card {
+  cursor: pointer;
+  border: 1px solid black;
+  border-radius: 20px;
+  width: 270px;
+}
+
+img {
+  border-radius: 20px 20px 0 0;
+}
+
+.cardBody {
+  padding: 1rem;
+}

@@ -1,15 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "./LandingPage.module.css";
+import { landingPage, goHomeBtn } from "./LandingPage.module.css";
 
 function LandingPage() {
   const navigate = useNavigate();
   const goHome = () => navigate("/home");
 
   return (
-    <div>
-      landing page
-      <button onClick={goHome}>go home</button>
+    <div className={landingPage}>
+      <button className={goHomeBtn} onClick={goHome}>home</button>
     </div>
   );
 }

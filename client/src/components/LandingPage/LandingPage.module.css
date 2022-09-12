@@ -1,0 +1,17 @@
+.landingPage {
+  height: 100vh;
+  background: orange;
+  text-align: center;
+}
+
+.goHomeBtn {
+  position: relative;
+  top: 50vh;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  border-radius: 15px;
+  border: none;
+  padding: .75rem 1.5rem;
+  cursor: pointer;
+}

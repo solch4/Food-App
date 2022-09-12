@@ -1,11 +1,25 @@
-import React from 'react';
-import styles from './SearchBar.module.css'
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { searchByName } from '../../actions/actions';
+// import styles from './SearchBar.module.css'
 
 function SearchBar() {
+  const dispatch = useDispatch()
+  const [searchInput, setSearchInput] = useState('')
+  
+  const handleSearch = (e) => {
+    e.preventDefault()
+    dispatch(searchByName(searchInput))
+    setSearchInput('')
+  }
+
+  const handleChange = (e) => setSearchInput(e.target.value)
+
   return (
-    <div>
-      search recipe
-    </div>
+    <form>
+      <input value={searchInput} onChange={handleChange} type='search' placeholder='Search recipe...' />
+      <button onClick={handleSearch} type='submit' >Search</button>
+    </form>
   );
 }
 
