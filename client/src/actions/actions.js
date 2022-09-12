@@ -46,3 +46,17 @@ export function filterByDiet (value) {
     payload: value
   }
 }
+
+export function sortByName (value) {
+  return {
+    type: 'SORT_BY_NAME',
+    payload: value
+  }
+}
+
+export function sortByHealthScore (value) {
+  return {
+    type: 'SORT_BY_HEALTHSCORE',
+    payload: value
+  }
+}

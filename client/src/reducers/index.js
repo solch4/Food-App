@@ -32,6 +32,44 @@ function rootReducer(state = initialState, action) {
         recipes: filteredRecipes
       };
 
+    case 'SORT_BY_NAME':
+      if (!Array.isArray(state.recipes)) return { ...state } //para q la app no se rompa al intentar ordenar el string not found
+      const recipesSortedByName =
+        action.payload === 'nameAtoZ' 
+          ? state.recipes.sort((a, b) => {
+            if (a.name > b.name) return 1
+            if (a.name < b.name) return -1
+            return 0
+          })
+          : state.recipes.sort((a, b) => {
+            if (a.name < b.name) return 1
+            if (a.name > b.name) return -1
+            return 0
+          })
+      return {
+        ...state,
+        recipes: recipesSortedByName
+      };
+
+    case 'SORT_BY_HEALTHSCORE':
+      if (!Array.isArray(state.recipes)) return { ...state } //para q la app no se rompa al intentar ordenar el string not found
+      const recipesSortedByHealthScore =
+        action.payload === 'lessHealthy' 
+          ? state.recipes.sort((a, b) => {
+            if (a.healthScore > b.healthScore) return 1
+            if (a.healthScore < b.healthScore) return -1
+            return 0
+          })
+          : state.recipes.sort((a, b) => {
+            if (a.healthScore < b.healthScore) return 1
+            if (a.healthScore > b.healthScore) return -1
+            return 0
+          })
+      return {
+        ...state,
+        recipes: recipesSortedByHealthScore
+      };
+
     default:
       return { ...state };
   }
