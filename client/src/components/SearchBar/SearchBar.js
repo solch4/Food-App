@@ -3,12 +3,13 @@ import { useDispatch } from 'react-redux';
 import { searchByName } from '../../actions/actions';
 // import styles from './SearchBar.module.css'
 
-function SearchBar() {
+function SearchBar({ setActualPage }) {
   const dispatch = useDispatch()
   const [searchInput, setSearchInput] = useState('')
   
   const handleSearch = (e) => {
     e.preventDefault()
+    setActualPage(1)
     dispatch(searchByName(searchInput))
     setSearchInput('')
   }

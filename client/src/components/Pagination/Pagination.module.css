@@ -1,0 +1,14 @@
+ul {
+  text-align: center;
+  display: flex;
+  list-style: none;
+}
+
+li {
+  background-color: black;
+  color: white;
+  padding: .5rem;
+  cursor: pointer;
+  user-select: none;
+  margin: 0 1px;
+}

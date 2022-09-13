@@ -1,10 +1,22 @@
-import React from 'react';
-import styles from './Pagination.module.css'
+import React from "react";
+import "./Pagination.module.css";
 
-function Pagination() {
+function Pagination({ actualPage, recipes, recipesPerPage, pages }) {
+  const arrPageNumbers = [];
+  //pregunto si es un array para tener una sola pág cuando tenga el string de recipe not found
+  const nOfPages = Math.ceil((Array.isArray(recipes) ? recipes.length : 1) / recipesPerPage);
+  for (let i = 1; i <= nOfPages; i++) arrPageNumbers.push(i);
+
+  const handlePrev = () => (actualPage-1) && pages(actualPage - 1)
+  const handleNext = () => (actualPage!==arrPageNumbers.length) && pages(actualPage + 1)
+
   return (
     <ul>
-      <li>pagination</li>
+      <li onClick={handlePrev}>Prev</li>
+      {arrPageNumbers.map((n) => 
+        <li onClick={() => pages(n)} key={n}>{n}</li>
+      )}
+      <li onClick={handleNext}>Next</li>
     </ul>
   );
 }

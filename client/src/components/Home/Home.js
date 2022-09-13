@@ -5,12 +5,21 @@ import Card from '../Card/Card';
 import SearchBar from '../SearchBar/SearchBar';
 import Filter from '../Filter/Filter';
 import Sort from '../Sort/Sort';
+import Pagination from '../Pagination/Pagination';
 // import styles from './Home.module.css'
 
 function Home() {
   const recipes = useSelector(state => state.recipes)
   const dispatch = useDispatch()
-  const [sort, setSort] = useState('')
+  const [, setSort] = useState('')
+
+  //pagination
+  const [actualPage, setActualPage] = useState(1)
+  const recipesPerPage = 9
+  const indexOfLastRecipe = actualPage * recipesPerPage
+  const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage
+  const actualRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe)
+  const pages = (n) => setActualPage(n)
 
   useEffect(() => {
     !recipes.length && dispatch(getRecipes())
@@ -20,11 +29,12 @@ function Home() {
   return (
     <div>
       <h1>Food app</h1>
-      <SearchBar />
-      <Filter />
-      <Sort setSort={setSort} />
+      <SearchBar setActualPage={setActualPage} />
+      <Filter setActualPage={setActualPage} />
+      <Sort setActualPage={setActualPage} setSort={setSort} />
+      <Pagination actualPage={actualPage} recipes={recipes} recipesPerPage={recipesPerPage} pages={pages} />
       {recipes.length && Array.isArray(recipes)
-        ? recipes.map(r => <Card key={r.id} id={r.id} image={r.image} name={r.name} diets={r.diets} healthScore={r.healthScore} createdInDB={r.createdInDB} />)
+        ? actualRecipes.map(r => <Card key={r.id} id={r.id} image={r.image} name={r.name} diets={r.diets} healthScore={r.healthScore} createdInDB={r.createdInDB} />)
         : !recipes.length ? 'Loading...' : recipes}
     </div>
   );

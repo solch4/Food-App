@@ -3,11 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { filterByDiet } from '../../actions/actions';
 // import styles from './Filter.module.css'
 
-function Filter() {
+function Filter({ setActualPage }) {
   const dispatch = useDispatch()
   const diets = useSelector(state => state.diets)
 
-  const handleFilterByDiet = (e) => dispatch(filterByDiet(e.target.value))
+  const handleFilterByDiet = (e) => {
+    setActualPage(1)
+    dispatch(filterByDiet(e.target.value))
+  }
 
   return (
     <div>
