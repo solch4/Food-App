@@ -6,6 +6,7 @@ import SearchBar from '../SearchBar/SearchBar';
 import Filter from '../Filter/Filter';
 import Sort from '../Sort/Sort';
 import Pagination from '../Pagination/Pagination';
+import { Link } from 'react-router-dom';
 // import styles from './Home.module.css'
 
 function Home() {
@@ -33,6 +34,7 @@ function Home() {
       <Filter setActualPage={setActualPage} />
       <Sort setActualPage={setActualPage} setSort={setSort} />
       <Pagination actualPage={actualPage} recipes={recipes} recipesPerPage={recipesPerPage} pages={pages} />
+      <Link to='/creation'><h3>Create recipe</h3></Link>
       {actualRecipes.length && Array.isArray(actualRecipes)
         ? actualRecipes.map(r => <Card key={r.id} id={r.id} image={r.image} name={r.name} diets={r.diets} healthScore={r.healthScore} createdInDB={r.createdInDB} />)
         : !recipes.length ? 'Loading...' : recipes}
