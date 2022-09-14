@@ -2,6 +2,7 @@ const initialState = {
   recipes: [], //renderizo este state
   allRecipes: [], // este state es solo para aplicar los filtros, es una copia de recipes
   diets: [],
+  detail: []
 };
 
 function rootReducer(state = initialState, action) {
@@ -68,6 +69,18 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         recipes: recipesSortedByHealthScore
+      };
+
+    case 'GET_DETAIL':
+      return {
+        ...state,
+        detail: action.payload
+      };
+    
+    case 'CLEAR_DETAIL':
+      return {
+        ...state,
+        detail: []
       };
 
     default:

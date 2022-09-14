@@ -24,7 +24,7 @@ function Home() {
   useEffect(() => {
     !recipes.length && dispatch(getRecipes())
     dispatch(getDiets())
-  }, [dispatch, recipes.length])
+  }, [dispatch, recipes])
 
   return (
     <div>
@@ -33,7 +33,7 @@ function Home() {
       <Filter setActualPage={setActualPage} />
       <Sort setActualPage={setActualPage} setSort={setSort} />
       <Pagination actualPage={actualPage} recipes={recipes} recipesPerPage={recipesPerPage} pages={pages} />
-      {recipes.length && Array.isArray(recipes)
+      {actualRecipes.length && Array.isArray(actualRecipes)
         ? actualRecipes.map(r => <Card key={r.id} id={r.id} image={r.image} name={r.name} diets={r.diets} healthScore={r.healthScore} createdInDB={r.createdInDB} />)
         : !recipes.length ? 'Loading...' : recipes}
     </div>

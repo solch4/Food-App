@@ -60,3 +60,19 @@ export function sortByHealthScore (value) {
     payload: value
   }
 }
+
+export function getDetail (id) {
+  return async function (dispatch) {
+    const res = await axios.get(`${baseUrl}/recipes/${id}`)
+    dispatch({
+      type: 'GET_DETAIL',
+      payload: res.data
+    })
+  }
+}
+
+export function clearDetail () {
+  return {
+    type: 'CLEAR_DETAIL'
+  }
+}
