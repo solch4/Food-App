@@ -9,7 +9,7 @@ function Detail() {
   const navigate = useNavigate()
   const { id } = useParams()
   const detail = useSelector(state => state.detail)
-  const { image, name, diets, healthScore, summary, instructions } = detail
+  const { image, name, diets, healthScore, summary, instructions, createdInDB } = detail
 
   useEffect(() => {
     console.log('me toy montando/actualizando');
@@ -31,14 +31,16 @@ function Detail() {
         <div>
           <img src={image} alt={image} />
           <h1>{name}</h1>
-          <p>Health score: {healthScore}%</p>
-          {/* vvv dsp faltaría hacer esto pero para los created in db */}
-          {!!diets.length && <p>Diets: {diets.join(', ')}</p>}
+          {healthScore && <p>Health score: {healthScore}%</p>}
+
+          {(!createdInDB && !!diets.length) && <p>Diets: {diets.join(', ')}</p>}
+          {(createdInDB && !!diets.length) && <p>Diets: {diets.map(d => Object.values(d)).join(', ')}</p>}
+
           <p>Summary: {summary?.replace(/<[^>]*>/g, '')}</p> {/* replace para eliminar las etiquetas fieras q me trae la api */}
+
           {instructions && <h3>Instructions</h3>}
-          {instructions && instructions.map((inst, n) => 
-            <p key={n}>Step {n+1}: {inst}</p>
-          )}
+          {!createdInDB && instructions?.map((inst, n) => <p key={n}>Step {n+1}: {inst}</p>)}
+          {createdInDB && <p>{instructions}</p>}
         </div>
       : 'Loading...'}
     </div>

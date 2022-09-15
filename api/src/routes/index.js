@@ -34,8 +34,7 @@ router.get('/recipes/:id', async (req, res) => {
   try {
     const id = req.params.id
     const allInfo = await getAllInfo()
-    const detail = await allInfo.find(recipe => recipe.id == id)
-    console.log(detail);
+    const detail = allInfo.find(recipe => recipe.id == id)
     detail
       ? res.status(200).send(detail)
       : res.status(404).send('Recipe not found')
@@ -50,20 +49,23 @@ Recibe los datos recolectados desde el formulario controlado de la ruta de creac
 Crea una receta en la base de datos relacionada con sus tipos de dietas. */
 router.post('/recipes', async (req,res) => {
   try {
-    const { name, summary, healthScore, instructions, image, diet } = req.body
+    const { name, summary, healthScore, instructions, image, diets } = req.body
     
     if (name && summary) {
       const newRecipe = await Recipe.create({
         ...req.body,
         name: name[0].toUpperCase() + name.slice(1),
+        summary: summary[0].toUpperCase() + summary.slice(1),
+        instructions: instructions ? instructions[0].toUpperCase() + instructions.slice(1) : null,
         image: image ? image : 'https://static.educalingo.com/img/en/800/food.jpg'
       })
-      const dietAux = await Diet.findAll({
+      const dietsAux = await Diet.findAll({
         where: {
-          name: diet
+          name: diets
         }
       })
-      newRecipe.addDiet(dietAux)
+      newRecipe.addDiet(dietsAux)
+      console.log('POST newRecipe:',newRecipe);
       res.status(201).send('Recipe created successfully!')
     } else res.status(400).send('Error 400: Bad request')
     
@@ -71,7 +73,6 @@ router.post('/recipes', async (req,res) => {
     console.log('error post', e);
     res.status(400).send('Something went wrong')
   }
-
 })
 
 

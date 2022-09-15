@@ -76,3 +76,13 @@ export function clearDetail () {
     type: 'CLEAR_DETAIL'
   }
 }
+
+export function createRecipe (newRecipe) {
+  return async function (dispatch) {
+    const res = await axios.post(`${baseUrl}/recipes`, newRecipe)
+    dispatch({
+      type: 'CREATE_RECIPE',
+      payload: res.data
+    })
+  }
+}

@@ -11,10 +11,10 @@ function Card ({ id, image, name, diets, healthScore, createdInDB }) {
       <img src={image} alt={name} />
       <div className={cardBody}>
         <h3>{name}</h3>
-        <h4>{healthScore}%</h4>
+        {healthScore && <h4>{healthScore}%</h4>}
         {createdInDB
-          ? <p>{diets.map(d => Object.values(d).map(d => d[0].toUpperCase() + d.slice(1))).join(', ')}.</p>
-          : <p>{diets.map(d => d[0].toUpperCase() + d.slice(1)).join(', ')}.</p>}
+          ? <p>{diets.map(d => Object.values(d).map(d => d[0].toUpperCase() + d.slice(1))).join(', ')}</p>
+          : <p>{diets.map(d => d[0].toUpperCase() + d.slice(1)).join(', ')}</p>}
       </div>
     </div>
   );

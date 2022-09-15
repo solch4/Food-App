@@ -83,6 +83,11 @@ function rootReducer(state = initialState, action) {
         detail: []
       };
 
+    case 'CREATE_RECIPE':
+      return {
+        ...state
+      };
+
     default:
       return { ...state };
   }
