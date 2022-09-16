@@ -1,0 +1,54 @@
+.searchBar {
+  position: relative;
+  padding-bottom: .75rem;
+}
+
+.input {
+  border-radius: 20px;
+  border: 1px black solid;
+  height: 2.25rem;
+  padding-inline: 1rem 2.75rem;
+  outline: none;
+}
+.input::placeholder {
+  color: inherit;
+}
+
+.btn {
+  color: white;
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0.5px solid black;
+  background: black;
+  border-radius: 20px;
+  transform: translateX(-2.25rem);
+  width: 2.25rem;
+  height: 2.25rem;
+  cursor: pointer;
+  transition: 0.1s;
+}
+.btn::after, .btn::before {
+  content: "";
+  position: absolute;
+}
+.btn::before {
+  width: 15px;
+  height: 15px;
+  border: 2px solid white;
+  border-radius: 50%;
+  transform: translate(-2px,-4px);
+}
+.btn::after {
+  width: 2px;
+  height: 10px;
+  background: white;
+  transform: translate(5px,5px) rotate(315deg);
+}
+
+@media (min-width: 500px) {
+  .searchBar {
+    padding: 0;
+  }
+}

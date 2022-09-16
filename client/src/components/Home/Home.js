@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { getDiets, getRecipes } from '../../actions/actions';
 import Card from '../Card/Card';
-import SearchBar from '../SearchBar/SearchBar';
 import Filter from '../Filter/Filter';
 import Sort from '../Sort/Sort';
 import Pagination from '../Pagination/Pagination';
 import { Link } from 'react-router-dom';
+import Nav from '../Nav/Nav';
 // import styles from './Home.module.css'
 
 function Home() {
@@ -22,6 +22,11 @@ function Home() {
   const actualRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe)
   const pages = (n) => setActualPage(n)
 
+  const handleRefresh = () => {
+    setActualPage(1)
+    dispatch(getRecipes())
+  }
+
   useEffect(() => {
     !recipes.length && dispatch(getRecipes())
     dispatch(getDiets())
@@ -29,10 +34,10 @@ function Home() {
 
   return (
     <div>
-      <h1>Food app</h1>
-      <SearchBar setActualPage={setActualPage} />
+      <Nav setActualPage={setActualPage} />
       <Filter setActualPage={setActualPage} />
       <Sort setActualPage={setActualPage} setSort={setSort} />
+      <button onClick={handleRefresh}>Refresh</button>
       <Pagination actualPage={actualPage} recipes={recipes} recipesPerPage={recipesPerPage} pages={pages} />
       <Link to='/creation'><h3>Create recipe</h3></Link>
       {actualRecipes.length && Array.isArray(actualRecipes)
