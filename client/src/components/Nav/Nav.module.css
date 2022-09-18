@@ -11,7 +11,7 @@
 
 .navContainer {
   width: 100%;
-  max-width: 1155px;
+  /* max-width: 1155px; */
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -42,5 +42,13 @@
     font-size: 2.25rem;
     font-weight: 900;
     padding-inline: 0rem;
+  }
+}
+
+@media (min-width: 850px) {
+  .nav {
+    z-index: 100;
+    position: fixed;
+    margin-bottom: 0;
   }
 }

@@ -1,19 +1,23 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { sortByHealthScore, sortByName } from '../../actions/actions';
-// import styles from './Sort.module.css'
+import { sortContainer, title } from './Sort.module.css'
 
-function Sort({ setActualPage, setSort }) {
+function Sort({ setMinPageNumber, setMaxPageNumber,setActualPage, setSort }) {
   const dispatch = useDispatch()
+  
   const handleSort = (e) => {
-    setSort(e.target.value)
     setActualPage(1)
+    setMinPageNumber(0)
+    setMaxPageNumber(5)  
+    setSort(e.target.value)
     if (e.target.value === 'nameAtoZ' || e.target.value === 'nameZtoA') dispatch(sortByName(e.target.value))
     if (e.target.value === 'moreHealthy' || e.target.value === 'lessHealthy') dispatch(sortByHealthScore(e.target.value))
   }
 
   return (
-    <div>
+    <div className={sortContainer}>
+      <span className={title}>Sort by: </span>
       <select onChange={handleSort} defaultValue='DEFAULT'>
         <option value='DEFAULT' disabled>--select sort--</option>
         <option value='nameAtoZ'>Name (A-Z)</option>

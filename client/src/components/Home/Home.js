@@ -7,12 +7,12 @@ import Sort from '../Sort/Sort';
 import Pagination from '../Pagination/Pagination';
 import { Link } from 'react-router-dom';
 import Nav from '../Nav/Nav';
-// import styles from './Home.module.css'
+import { App, homeContainer, menuContainer, sortFilter, refreshBtn, cardContainer } from './Home.module.css'
 
 function Home() {
   const recipes = useSelector(state => state.recipes)
   const dispatch = useDispatch()
-  const [, setSort] = useState('')
+  const [, setSort] = useState('') //este state sólo sirve para re-renderizar la pág cuando hacemos un sort
 
   //pagination
   const [actualPage, setActualPage] = useState(1)
@@ -20,7 +20,18 @@ function Home() {
   const indexOfLastRecipe = actualPage * recipesPerPage
   const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage
   const actualRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe)
-  const pages = (n) => setActualPage(n)
+  const [minPageNumber, setMinPageNumber] = useState(0) //este estado y el q está abajo es para hacer el paginado más tikito y que quede lindo, uso ambos para hacer un slice y renderizar sólo ese pedazo
+  const [maxPageNumber, setMaxPageNumber] = useState(5)
+  const pages = (pageNumber) => {
+    setActualPage(pageNumber);
+    if(pageNumber >= maxPageNumber) {
+      setMinPageNumber(minPageNumber+4)
+      setMaxPageNumber(maxPageNumber+4)
+    } else if(pageNumber <= minPageNumber+1 && pageNumber !== 1) {
+      setMinPageNumber(minPageNumber-4)
+      setMaxPageNumber(maxPageNumber-4)
+    }
+  };
 
   const handleRefresh = () => {
     setActualPage(1)
@@ -33,16 +44,29 @@ function Home() {
   }, [dispatch, recipes])
 
   return (
-    <div>
-      <Nav setActualPage={setActualPage} />
-      <Filter setActualPage={setActualPage} />
-      <Sort setActualPage={setActualPage} setSort={setSort} />
-      <button onClick={handleRefresh}>Refresh</button>
-      <Pagination actualPage={actualPage} recipes={recipes} recipesPerPage={recipesPerPage} pages={pages} />
-      <Link to='/creation'><h3>Create recipe</h3></Link>
-      {actualRecipes.length && Array.isArray(actualRecipes)
-        ? actualRecipes.map(r => <Card key={r.id} id={r.id} image={r.image} name={r.name} diets={r.diets} healthScore={r.healthScore} createdInDB={r.createdInDB} />)
-        : !recipes.length ? 'Loading...' : recipes}
+    <div className={App}>
+      <Nav setMinPageNumber={setMinPageNumber} setMaxPageNumber={setMaxPageNumber} setActualPage={setActualPage} />
+      <div className={homeContainer}>
+        <div className={menuContainer}>
+          <div className={sortFilter}>
+            <Filter setMinPageNumber={setMinPageNumber} setMaxPageNumber={setMaxPageNumber} setActualPage={setActualPage} />
+            <Sort setMinPageNumber={setMinPageNumber} setMaxPageNumber={setMaxPageNumber} setActualPage={setActualPage} setSort={setSort} />
+          </div>
+          <button className={refreshBtn} onClick={handleRefresh}>Refresh</button>
+          <h3>
+            Submit your own recipe&nbsp;
+            <Link to='/creation'>here</Link>!
+          </h3>
+          <Pagination actualPage={actualPage} minPageNumber={minPageNumber} maxPageNumber={maxPageNumber} recipes={recipes} recipesPerPage={recipesPerPage} pages={pages} />
+        </div>
+        
+        {/* recipes */}
+        <div className={cardContainer}>
+          {actualRecipes.length && Array.isArray(actualRecipes)
+            ? actualRecipes.map(r => <Card key={r.id} id={r.id} image={r.image} name={r.name} diets={r.diets} healthScore={r.healthScore} createdInDB={r.createdInDB} />)
+            : !recipes.length ? 'Loading...' : recipes}
+        </div>
+      </div>
     </div>
   );
 }

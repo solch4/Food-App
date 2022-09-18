@@ -1,7 +1,7 @@
 import React from "react";
 import "./Pagination.module.css";
 
-function Pagination({ actualPage, recipes, recipesPerPage, pages }) {
+function Pagination({ actualPage, minPageNumber, maxPageNumber, recipes, recipesPerPage, pages }) {
   const arrPageNumbers = [];
   //pregunto si es un array para tener una sola pág cuando tenga el string de recipe not found
   const nOfPages = Math.ceil((Array.isArray(recipes) ? recipes.length : 1) / recipesPerPage);
@@ -12,11 +12,11 @@ function Pagination({ actualPage, recipes, recipesPerPage, pages }) {
 
   return (
     <ul>
-      <li onClick={handlePrev}>Prev</li>
-      {arrPageNumbers.map((n) => 
+      <li onClick={handlePrev}>«</li>
+      {arrPageNumbers.slice(minPageNumber, maxPageNumber).map((n) => 
         <li onClick={() => pages(n)} key={n}>{n}</li>
       )}
-      <li onClick={handleNext}>Next</li>
+      <li onClick={handleNext}>»</li>
     </ul>
   );
 }

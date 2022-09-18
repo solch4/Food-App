@@ -3,15 +3,18 @@ import { useDispatch } from 'react-redux';
 import { searchByName } from '../../actions/actions';
 import { searchBar, input, btn } from './SearchBar.module.css'
 
-function SearchBar({ setActualPage }) {
+function SearchBar({ setMinPageNumber, setMaxPageNumber,setActualPage }) {
   const dispatch = useDispatch()
   const [searchInput, setSearchInput] = useState('')
   
   const handleSearch = (e) => {
     e.preventDefault()
-    if (!searchInput.trim()) alert('Please write the name of the recipe you want to find')
+    if (!searchInput.trim()) return alert('Please write the name of the recipe you want to find')
+    
+    dispatch(searchByName(searchInput.trim()))
     setActualPage(1)
-    dispatch(searchByName(searchInput))
+    setMinPageNumber(0)
+    setMaxPageNumber(5)  
     setSearchInput('')
   }
 
