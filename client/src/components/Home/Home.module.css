@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
 }
 .homeContainer {
   width: 100%;
@@ -18,13 +17,13 @@
   align-items: center;
   justify-content: center;
 
-  gap: .5rem;
+  gap: 1rem;
 }
 
 .sortFilter {
   display: flex;
   flex-direction: column;
-  gap: .5rem;
+  gap: .75rem;
   width: 100%;
   padding-inline: .75rem;
 }
@@ -39,11 +38,26 @@
   cursor: pointer;
 }
 
+.createRecipe {
+  font-family: var(--ff-title);
+  /* margin: 1rem; */
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+.createRecipe a {
+  color: grey;
+  font-weight: 900;
+  text-decoration: none;
+  transition: 0.1s;
+}
+.createRecipe a:hover {
+  text-decoration: underline;
+}
+
 .cardContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: .75rem;
   margin-top: 1.5rem;
 }
 
@@ -80,7 +94,7 @@
 
 @media (min-width: 850px) {
   .homeContainer {
-    margin-top: 5.4rem;
+    top: 5.4rem;
     /* display: grid;
     grid-template-columns: .25fr 1fr; */
     position: relative;
@@ -92,13 +106,21 @@
     width: 30%;
     justify-content: flex-start;
     padding: 2rem 1rem;
+    gap: 2rem;
   }
   .sortFilter {
     flex-direction: column;
+    gap: 1.5rem;
   }
   .cardContainer {
     position: absolute;
     right: 0;
     width: 70%;
+  }
+}
+
+@media (min-width:1150px) {
+  .menuContainer {
+    gap: 2.5rem;
   }
 }

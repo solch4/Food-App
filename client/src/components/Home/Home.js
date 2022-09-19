@@ -7,7 +7,7 @@ import Sort from '../Sort/Sort';
 import Pagination from '../Pagination/Pagination';
 import { Link } from 'react-router-dom';
 import Nav from '../Nav/Nav';
-import { App, homeContainer, menuContainer, sortFilter, refreshBtn, cardContainer } from './Home.module.css'
+import { App, homeContainer, menuContainer, sortFilter, refreshBtn, createRecipe, cardContainer } from './Home.module.css'
 
 function Home() {
   const recipes = useSelector(state => state.recipes)
@@ -35,6 +35,8 @@ function Home() {
 
   const handleRefresh = () => {
     setActualPage(1)
+    setMinPageNumber(0)
+    setMaxPageNumber(5)  
     dispatch(getRecipes())
   }
 
@@ -47,16 +49,18 @@ function Home() {
     <div className={App}>
       <Nav setMinPageNumber={setMinPageNumber} setMaxPageNumber={setMaxPageNumber} setActualPage={setActualPage} />
       <div className={homeContainer}>
+        
         <div className={menuContainer}>
           <div className={sortFilter}>
             <Filter setMinPageNumber={setMinPageNumber} setMaxPageNumber={setMaxPageNumber} setActualPage={setActualPage} />
             <Sort setMinPageNumber={setMinPageNumber} setMaxPageNumber={setMaxPageNumber} setActualPage={setActualPage} setSort={setSort} />
           </div>
           <button className={refreshBtn} onClick={handleRefresh}>Refresh</button>
-          <h3>
+          
+          <div className={createRecipe}>
             Submit your own recipe&nbsp;
             <Link to='/creation'>here</Link>!
-          </h3>
+          </div>
           <Pagination actualPage={actualPage} minPageNumber={minPageNumber} maxPageNumber={maxPageNumber} recipes={recipes} recipesPerPage={recipesPerPage} pages={pages} />
         </div>
         

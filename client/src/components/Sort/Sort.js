@@ -17,7 +17,7 @@ function Sort({ setMinPageNumber, setMaxPageNumber,setActualPage, setSort }) {
 
   return (
     <div className={sortContainer}>
-      <span className={title}>Sort by: </span>
+      <span className={title}>Sort by </span>
       <select onChange={handleSort} defaultValue='DEFAULT'>
         <option value='DEFAULT' disabled>--select sort--</option>
         <option value='nameAtoZ'>Name (A-Z)</option>

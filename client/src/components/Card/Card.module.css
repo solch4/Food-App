@@ -1,14 +1,41 @@
 .card {
-  cursor: pointer;
-  border: 1px solid black;
+  text-decoration: none;
+  text-align: left;
+  color: inherit;
+  /* border: 1px solid black; */
+  box-shadow: darkgrey 0px 0px 4px;
   border-radius: 20px;
   width: 270px;
+  margin: .75rem;
+  transition: 0.2s ease-out;
+}
+.card:hover {
+  box-shadow: darkgrey 0px 0px 8px 0px;
 }
 
-img {
+.img {
   border-radius: 20px 20px 0 0;
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
 }
 
-.cardBody {
-  padding: 1rem;
+.body {
+  padding: 1.25rem;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-family: var(--ff-title);
+}
+
+.healthS {
+  color: grey;
+  font-family: var(--ff-title);
+}
+
+.diet {
+  color: darkgray;
+  font-size: .75rem;
+  line-height: 1.25;
 }

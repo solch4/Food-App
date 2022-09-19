@@ -9,7 +9,7 @@ function SearchBar({ setMinPageNumber, setMaxPageNumber,setActualPage }) {
   
   const handleSearch = (e) => {
     e.preventDefault()
-    if (!searchInput.trim()) return alert('Please write the name of the recipe you want to find')
+    if (!searchInput.trim()) return
     
     dispatch(searchByName(searchInput.trim()))
     setActualPage(1)
