@@ -2,8 +2,10 @@ import React, { useEffect, useLayoutEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearDetail, getDetail } from '../../actions/actions';
-// import styles from './Detail.module.css'
+import backArrow from '../../assets/back-arrow.svg'
+import { detailDiv, container, backBtn, body, img, title, category, subtitle } from './Detail.module.css'
 
+//la info proveniente de la api y de la db son tipos de datos distintos, x eso pregunto si es createdInDB
 function Detail() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -25,24 +27,34 @@ function Detail() {
   const handleGoBack = () => navigate(-1)
 
   return (
-    <div>
-      <button onClick={handleGoBack}>Go home</button>
-      {Object.keys(detail).length ? 
-        <div>
-          <img src={image} alt={image} />
-          <h1>{name}</h1>
-          {healthScore && <p>Health score: {healthScore}%</p>}
+    <div className={detailDiv}>
+      <div className={container}>
+        <button className={backBtn} onClick={handleGoBack}>
+          <img src={backArrow} alt='Go back' />
+        </button>
+        {Object.keys(detail).length && typeof detail !== 'string' ? (
+          <div className={body}>
+            <img className={img} src={image} alt={image} />
+            <h1 className={title}>{name}</h1>
+            {healthScore && <h4>Health score: {healthScore}%</h4>}
 
-          {(!createdInDB && !!diets.length) && <p>Diets: {diets.join(', ')}</p>}
-          {(createdInDB && !!diets.length) && <p>Diets: {diets.map(d => Object.values(d)).join(', ')}</p>}
+            {(!createdInDB && !!diets.length) && <p><span className={category}>Diets: </span>{diets.join(' - ')}</p>}
+            {(createdInDB && !!diets.length) && <p><span className={category}>Diets: </span>{diets.map(d => Object.values(d)).join(' - ')}</p>}
 
-          <p>Summary: {summary?.replace(/<[^>]*>/g, '')}</p> {/* replace para eliminar las etiquetas fieras q me trae la api */}
+            <h2 className={subtitle}>Summary</h2>
+            <p>{summary?.replace(/<[^>]*>/g, '')}</p> {/* replace para eliminar las etiquetas fieras q me trae la api */}
 
-          {instructions && <h3>Instructions</h3>}
-          {!createdInDB && instructions?.map((inst, n) => <p key={n}>Step {n+1}: {inst}</p>)}
-          {createdInDB && <p>{instructions}</p>}
-        </div>
-      : 'Loading...'}
+            {instructions && <h2 className={subtitle}>Instructions</h2>}
+            {createdInDB 
+              ? <p>{instructions}</p>
+              : instructions?.map((inst, n) => <p key={n}><span className={category}>Step {n+1}: </span>{inst}</p>)}
+          </div>
+        ) : (
+          Array.isArray(detail)
+            ? <h3>Loading...</h3>
+            : <h3>Recipe not found</h3>
+        )}
+      </div>
     </div>
   );
 }
