@@ -2,15 +2,14 @@
   text-decoration: none;
   text-align: left;
   color: inherit;
-  /* border: 1px solid black; */
-  box-shadow: darkgrey 0px 0px 4px;
+  box-shadow: var(--clr-light-grey) 0px 0px 4px;
   border-radius: 20px;
   width: 270px;
   margin: .75rem;
   transition: 0.2s ease-out;
 }
 .card:hover {
-  box-shadow: darkgrey 0px 0px 8px 0px;
+  box-shadow: var(--clr-light-grey) 0px 0px 8px 0px;
 }
 
 .img {
@@ -26,16 +25,14 @@
 
 .title {
   font-size: 1.25rem;
-  font-family: var(--ff-title);
 }
 
 .healthS {
-  color: grey;
-  font-family: var(--ff-title);
+  color: var(--clr-dark-grey);
 }
 
 .diet {
-  color: darkgray;
+  color: var(--clr-dark-grey);
   font-size: .75rem;
   line-height: 1.25;
 }

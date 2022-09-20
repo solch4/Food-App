@@ -87,12 +87,17 @@ select {
 
 
 :root {
+  --clr-main: #BE0309;
+  
+  --clr-black: #302523;
+  --clr-dark-grey: #88726D;
+  --clr-grey: #BEA6A0;
+  --clr-light-grey: #AB9D9A;
+
   --ff-title: 'Cardo', serif;
   --ff-body: 'Hind', sans-serif;
-
   /* --ff-title: 'Philosopher', sans-serif;
   --ff-body: 'Mulish', sans-serif; */
-  
   /* --ff-title: 'Rufina', serif;
   --ff-body: 'Average Sans', sans-serif; */
 }
@@ -100,6 +105,7 @@ select {
 body {
   font-family: var(--ff-body);
   text-align: center;
+  color: var(--clr-black);
 }
 
 h1, h2, h3, h4, h5, h6 {
