@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { createRecipe, getDiets } from '../../actions/actions';
-import { formContainer, formBody, error } from './CreateRecipe.module.css'
+import backArrow from '../../assets/back-arrow.svg'
+import { formDiv, formContainer, backBtn, title, subtitle, form, obligatory, category, error, dietContainer, item, deleteBtn, submitBtn } from './CreateRecipe.module.css'
 
 // eslint-disable-next-line no-useless-escape
 const imgRegexp = new RegExp('^https?:\/\/.+\.(jpg|jpeg|png|webp|avif|gif|svg)$')
@@ -84,46 +85,52 @@ function CreateRecipe () {
   }, [dispatch])
 
   return (
-    <div className={formContainer}>
-      <button onClick={handleGoBack}>Go back</button>
-      <h2>Submit your own recipe!</h2>
-      <h5>Fields with * are required</h5>
-      <form className={formBody} onSubmit={handleSubmit}>
-        <label>Name *</label>
-        <input value={input.name} name='name' onChange={handleChange} type='text' placeholder='Name' />
-        {err.name && <p className={error}>{err.name}</p>}
-        
-        <label>Summary *</label>
-        <textarea value={input.summary} name='summary' onChange={handleChange} placeholder='Summary' />
-        {err.summary && <p className={error}>{err.summary}</p>}
-        
-        <label>Health Score</label>
-        <input value={input.healthScore} name='healthScore' onChange={handleChange} type='number' min={0} max={100} placeholder='Health Score (0 - 100%)' />
-        {err.healthScore && <p className={error}>{err.healthScore}</p>}
-        
-        <label>Instructions</label>
-        <textarea value={input.instructions} name='instructions' onChange={handleChange} placeholder='Instructions' />
-        
-        <label>Image</label>
-        <input value={input.image} name='image' onChange={handleChange} type='text' placeholder='Image URL' />
-        {err.image && <p className={error}>{err.image}</p>}
-        
-        <label>Diets</label>
-        <select onChange={handleSelectDiet} defaultValue='DEFAULT'>
-          <option value="DEFAULT" disabled>Select diets...</option>
-          {diets.map(diet => <option value={diet.name} key={diet.id}>{diet.name}</option>)}
-        </select>
-        <ul>
-          {selectedDiet.map((diet,id) => 
-            <li key={id}>
-              {diet}
-              <button value={diet} onClick={handleDeleteDiet}>X</button>
-            </li>
-          )}
-        </ul>
-        
-        <button type='submit'>Submit recipe</button>
-      </form>
+    <div className={formDiv}>
+      <div className={formContainer}>
+        <button className={backBtn} onClick={handleGoBack}>
+          <img src={backArrow} alt='Go back' />
+        </button>
+
+        <h1 className={title}>Complete the form and submit your own recipe</h1>
+        <h5 className={subtitle}>Fields with <span className={obligatory}>*</span> are required</h5>
+
+        <form className={form} onSubmit={handleSubmit}>
+          <label className={category}>Name <span className={obligatory}>*</span></label>
+          <input value={input.name} name='name' onChange={handleChange} type='text' placeholder='Name' />
+          {err.name && <p className={error}>{err.name}</p>}
+          
+          <label className={category}>Summary <span className={obligatory}>*</span></label>
+          <textarea value={input.summary} name='summary' onChange={handleChange} placeholder='Summary' />
+          {err.summary && <p className={error}>{err.summary}</p>}
+          
+          <label className={category}>Health Score</label>
+          <input value={input.healthScore} name='healthScore' onChange={handleChange} type='number' min={0} max={100} placeholder='Health Score (0 - 100%)' />
+          {err.healthScore && <p className={error}>{err.healthScore}</p>}
+          
+          <label className={category}>Instructions</label>
+          <textarea value={input.instructions} name='instructions' onChange={handleChange} placeholder='Instructions' />
+          
+          <label className={category}>Image</label>
+          <input value={input.image} name='image' onChange={handleChange} type='text' placeholder='Image URL' />
+          {err.image && <p className={error}>{err.image}</p>}
+          
+          <label className={category}>Diet</label>
+          <select onChange={handleSelectDiet} defaultValue='DEFAULT'>
+            <option value="DEFAULT" disabled>--select type of diet--</option>
+            {diets.map(diet => <option value={diet.name} key={diet.id}>{diet.name}</option>)}
+          </select>
+          <ul className={dietContainer}>
+            {selectedDiet.map((diet,id) => 
+              <li className={item} key={id}>
+                {diet}
+                <button className={deleteBtn} value={diet} onClick={handleDeleteDiet}>X</button>
+              </li>
+            )}
+          </ul>
+          
+          <button className={submitBtn} type='submit'>Submit recipe</button>
+        </form>
+      </div>
     </div>
   );
 }
