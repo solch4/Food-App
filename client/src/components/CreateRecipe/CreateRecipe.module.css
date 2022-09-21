@@ -117,3 +117,10 @@ textarea {
   transform: translateY(2px);
   box-shadow: none;
 }
+
+@media (min-width:540px){
+  .formContainer {
+    margin-inline: auto;
+    padding: 2.25rem 2.5rem;
+  }
+}
