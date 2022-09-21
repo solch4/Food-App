@@ -35,6 +35,10 @@
   color: white;
   padding: 0.25rem 1rem;
   cursor: pointer;
+  transition: .1s;
+}
+.refreshBtn:hover {
+  background-color: var(--clr-dark-main);
 }
 
 .createRecipe {
@@ -51,6 +55,7 @@
 }
 .createRecipe a:hover {
   text-decoration: underline;
+  color: var(--clr-dark-main);
 }
 
 .cardContainer {
@@ -58,6 +63,28 @@
   flex-direction: column;
   align-items: center;
   margin-top: 1.5rem;
+}
+
+.scrollBtn {
+  background-color: var(--clr-main);
+  background-image: url('../../assets/arrow-up.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 15px;
+  border-radius: 50%;
+  border: none;
+  color: white;
+  height: 35px;
+  width: 35px;
+  cursor: pointer;
+  transition: .1s;
+
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+}
+.scrollBtn:hover {
+  background-color: var(--clr-dark-main);
 }
 
 @media (min-width: 500px) {

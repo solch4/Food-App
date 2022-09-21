@@ -88,6 +88,7 @@ select {
 
 :root {
   --clr-main: #BE0309;
+  --clr-dark-main: #7A0000;
   
   --clr-black: #302523;
   --clr-dark-grey: #88726D;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { getDiets, getRecipes } from '../../actions/actions';
 import Card from '../Card/Card';
@@ -7,9 +7,10 @@ import Sort from '../Sort/Sort';
 import Pagination from '../Pagination/Pagination';
 import { Link } from 'react-router-dom';
 import Nav from '../Nav/Nav';
-import { App, homeContainer, menuContainer, sortFilter, refreshBtn, createRecipe, cardContainer } from './Home.module.css'
+import { App, homeContainer, menuContainer, sortFilter, refreshBtn, createRecipe, cardContainer, scrollBtn } from './Home.module.css'
 
 function Home() {
+  const appTopRef = useRef()
   const recipes = useSelector(state => state.recipes)
   const dispatch = useDispatch()
   const [, setSort] = useState('') //este state sólo sirve para re-renderizar la pág cuando hacemos un sort
@@ -46,7 +47,7 @@ function Home() {
   }, [dispatch, recipes])
 
   return (
-    <div className={App}>
+    <div ref={appTopRef} className={App}>
       <Nav setMinPageNumber={setMinPageNumber} setMaxPageNumber={setMaxPageNumber} setActualPage={setActualPage} />
       <div className={homeContainer}>
         
@@ -71,6 +72,7 @@ function Home() {
             : !recipes.length ? 'Loading...' : recipes}
         </div>
       </div>
+      <button className={scrollBtn} onClick={() => appTopRef.current?.scrollIntoView({ behavior: 'smooth' })}></button>
     </div>
   );
 }
