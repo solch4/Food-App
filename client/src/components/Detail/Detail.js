@@ -1,11 +1,11 @@
 import React, { useEffect, useLayoutEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { clearDetail, getDetail } from '../../actions/actions';
+import { clearDetail, deleteRecipe, getDetail } from '../../actions/actions';
 import backArrow from '../../assets/back-arrow.svg'
 import { detailDiv, container, backBtn, body, img, title, category, subtitle } from './Detail.module.css'
 
-//la info proveniente de la api y de la db son tipos de datos distintos, x eso pregunto si es createdInDB
+//la info proveniente de la api y de la db son tipos de datos distintos, x eso antes de renderizar algunas cosas pregunto si es createdInDB
 function Detail() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -25,6 +25,12 @@ function Detail() {
   },[dispatch])
   
   const handleGoBack = () => navigate(-1)
+
+  const handleDelete = () => {
+    if (!window.confirm(`Are you sure you want to delete the ${name} recipe? \nYou won't be able to revert this.`)) return
+    dispatch(deleteRecipe(id))
+    navigate(-1)
+  }
 
   return (
     <div className={detailDiv}>
@@ -48,6 +54,8 @@ function Detail() {
             {createdInDB 
               ? <p>{instructions}</p>
               : instructions?.map((inst, n) => <p key={n}><span className={category}>Step {n+1}: </span>{inst}</p>)}
+            
+            {createdInDB && <button onClick={handleDelete}>Delete</button>}
           </div>
         ) : (
           Array.isArray(detail)

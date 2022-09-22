@@ -88,6 +88,11 @@ function rootReducer(state = initialState, action) {
         ...state
       };
 
+    case 'DELETE_RECIPE':
+      return {
+        ...state
+      };
+
     default:
       return { ...state };
   }

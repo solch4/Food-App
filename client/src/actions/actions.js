@@ -93,3 +93,13 @@ export function createRecipe (newRecipe) {
     })
   }
 }
+
+export function deleteRecipe (id) {
+  return async function (dispatch) {
+    const res = await axios.delete(`${baseUrl}/recipes/${id}`)
+    alert(res.data)
+    dispatch({
+      type: 'DELETE_DOG'
+    })
+  }
+}
