@@ -89,4 +89,37 @@ router.delete('/:id', async (req, res) => {
   }
 })
 
+router.put('/:id/edit', async (req, res) => {
+  const id = req.params.id
+  const { name, summary, instructions } = req.body
+
+  try {
+    const editableRecipe = await Recipe.findByPk(id)
+    console.log('editableRecipe', editableRecipe);
+
+    if (Object.keys(editableRecipe).length) {
+      if (name) req.body.name = name[0].toUpperCase() + name.slice(1) //si modifican el name, lo paso a mayus
+      if (summary) req.body.summary = summary[0].toUpperCase() + summary.slice(1)
+      if (instructions) req.body.instructions = instructions[0].toUpperCase() + instructions.slice(1)
+
+      await Recipe.update(req.body, { //método de sequelize. recibe dos params ({obj con datos a actualizar}, {where hacerlo})
+        where: { id: id }
+      })
+
+      if (req.body.diets) { //seteo los temperamentos solamente si me los pasan x body (si no lo hago tira error undef)
+        const dietsBody = await Diet.findAll({
+          where: { name: req.body.diets }
+        })
+        editableRecipe.setDiets(dietsBody)
+      }
+
+      res.status(200).send("The recipe was successfully edited! \nIf you don't see any changes, please refresh the page.")
+    } else res.status(404).send('Recipe ID not found')
+    
+  } catch (e) {
+    console.log('ERROR PUT:', e);
+    res.status(400).send('Recipe ID is wrong')
+  }
+})
+
 module.exports = router 

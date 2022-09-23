@@ -92,6 +92,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state
       };
+    
+    case 'EDIT_RECIPE':
+      return {
+        ...state
+      };
 
     default:
       return { ...state };

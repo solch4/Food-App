@@ -103,3 +103,18 @@ export function deleteRecipe (id) {
     })
   }
 }
+
+export function editRecipe (payload, id) {
+  return async function (dispatch) {
+    try {
+      const res = await axios.put(`${baseUrl}/recipes/${id}/edit`, payload)
+      alert(res.data)
+      dispatch({
+        type: 'EDIT_RECIPE'
+      })
+      
+    } catch (e) {
+      alert(e.response.data)
+    }
+  }
+}
