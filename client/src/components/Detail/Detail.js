@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearDetail, deleteRecipe, getDetail } from '../../actions/actions';
 import backArrow from '../../assets/back-arrow.svg'
-import { detailDiv, container, backBtn, body, img, title, category, subtitle, deleteEditBtnsContainer, deleteBtn, editBtn } from './Detail.module.css'
+import { detailDiv, container, backBtn, body, img, title, category, subtitle, deleteEditBtnsContainer, deleteBtn, editBtn, p } from './Detail.module.css'
 
 //la info proveniente de la api y de la db son tipos de datos distintos, x eso antes de renderizar algunas cosas pregunto si es createdInDB
 function Detail() {
@@ -46,16 +46,16 @@ function Detail() {
             <h1 className={title}>{name}</h1>
             {healthScore && <h4>Health score: {healthScore}%</h4>}
 
-            {(!createdInDB && !!diets.length) && <p><span className={category}>Diets: </span>{diets.join(' - ')}</p>}
-            {(createdInDB && !!diets.length) && <p><span className={category}>Diets: </span>{diets.map(d => Object.values(d)).join(' - ')}</p>}
+            {(!createdInDB && !!diets.length) && <p className={p}><span className={category}>Diets: </span>{diets.join(' - ')}</p>}
+            {(createdInDB && !!diets.length) && <p className={p}><span className={category}>Diets: </span>{diets.map(d => Object.values(d)).join(' - ')}</p>}
 
             <h2 className={subtitle}>Summary</h2>
-            <p>{summary?.replace(/<[^>]*>/g, '')}</p> {/* replace para eliminar las etiquetas fieras q me trae la api */}
+            <p className={p}>{summary?.replace(/<[^>]*>/g, '')}</p> {/* replace para eliminar las etiquetas fieras q me trae la api */}
 
             {instructions && <h2 className={subtitle}>Instructions</h2>}
             {createdInDB 
-              ? <p>{instructions}</p>
-              : instructions?.map((inst, n) => <p key={n}><span className={category}>Step {n+1}: </span>{inst}</p>)}
+              ? <p className={p}>{instructions}</p>
+              : instructions?.map((inst, n) => <p  className={p} key={n}><span className={category}>Step {n+1}: </span>{inst}</p>)}
             
             {createdInDB &&
               <div className={deleteEditBtnsContainer}>

@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { getDiets, getRecipes } from '../../actions/actions';
-import Card from '../Card/Card';
 import Filter from '../Filter/Filter';
 import Sort from '../Sort/Sort';
 import Pagination from '../Pagination/Pagination';
 import { Link } from 'react-router-dom';
 import Nav from '../Nav/Nav';
-import { App, homeContainer, menuContainer, sortFilter, refreshBtn, createRecipe, cardContainer, scrollBtn } from './Home.module.css'
+import Cards from '../Cards/Cards';
+import ScrollToTopButton from '../ScrollToTopButton/ScrollToTopButton';
+import { App, homeContainer, menuContainer, sortFilter, refreshBtn, createRecipe } from './Home.module.css'
 
 function Home() {
   const appTopRef = useRef()
@@ -18,8 +19,8 @@ function Home() {
   //pagination
   const [actualPage, setActualPage] = useState(1)
   const recipesPerPage = 9
-  const indexOfLastRecipe = actualPage * recipesPerPage
-  const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage
+  const indexOfLastRecipe = actualPage * recipesPerPage //last recipe per page
+  const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage //1st recipe per page
   const actualRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe)
   const [minPageNumber, setMinPageNumber] = useState(0) //este estado y el q está abajo es para hacer el paginado más tikito y que quede lindo, uso ambos para hacer un slice y renderizar sólo ese pedazo
   const [maxPageNumber, setMaxPageNumber] = useState(5)
@@ -58,21 +59,16 @@ function Home() {
           </div>
           <button className={refreshBtn} onClick={handleRefresh}>Refresh</button>
           
-          <div className={createRecipe}>
+          <h3 className={createRecipe}>
             Submit your own recipe&nbsp;
             <Link to='/creation'>here</Link>!
-          </div>
+          </h3>
           <Pagination actualPage={actualPage} minPageNumber={minPageNumber} maxPageNumber={maxPageNumber} recipes={recipes} recipesPerPage={recipesPerPage} pages={pages} />
         </div>
         
-        {/* recipes */}
-        <div className={cardContainer}>
-          {actualRecipes.length && Array.isArray(actualRecipes)
-            ? actualRecipes.map(r => <Card key={r.id} id={r.id} image={r.image} name={r.name} diets={r.diets} healthScore={r.healthScore} createdInDB={r.createdInDB} />)
-            : !recipes.length ? 'Loading...' : recipes}
-        </div>
+        <Cards actualRecipes={actualRecipes} />
       </div>
-      <button className={scrollBtn} onClick={() => appTopRef.current?.scrollIntoView({ behavior: 'smooth' })}></button>
+      <ScrollToTopButton appTopRef={appTopRef} />
     </div>
   );
 }

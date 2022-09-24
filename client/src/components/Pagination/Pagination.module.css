@@ -36,6 +36,7 @@
 
 .pageNumberACTIVE {
   background-color: var(--clr-main);
+  font-weight: 500;
 }
 
 .arrow {

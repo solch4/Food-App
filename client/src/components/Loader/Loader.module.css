@@ -1,0 +1,20 @@
+.img {
+  height: 80px;
+  margin-top: 1rem;
+  animation: loading 2s infinite linear;
+}
+
+@keyframes loading {
+  from {
+    transform: rotateZ(0deg);
+  }
+  to {
+    transform: rotateZ(360deg);
+  }
+}
+
+@media (min-width: 500px) {
+  .img {
+    margin-top: 1.5rem;
+  }
+}
