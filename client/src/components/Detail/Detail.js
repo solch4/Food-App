@@ -11,7 +11,7 @@ function Detail() {
   const navigate = useNavigate()
   const { id } = useParams()
   const detail = useSelector(state => state.detail)
-  const { image, name, diets, healthScore, summary, instructions, createdInDB } = detail
+  const { image, name, diets, healthScore, summary, instructions, dishTypes, createdInDB } = detail
 
   useEffect(() => {
     console.log('me toy montando/actualizando');
@@ -46,8 +46,10 @@ function Detail() {
             <h1 className={title}>{name}</h1>
             {healthScore && <h4>Health score: {healthScore}%</h4>}
 
-            {(!createdInDB && !!diets.length) && <p className={p}><span className={category}>Diets: </span>{diets.join(' - ')}</p>}
-            {(createdInDB && !!diets.length) && <p className={p}><span className={category}>Diets: </span>{diets.map(d => Object.values(d)).join(' - ')}</p>}
+            {(!createdInDB && !!diets.length) && <p className={p}><span className={category}>Diets: </span>{diets}</p>}
+            {(createdInDB && !!diets.length) && <p className={p}><span className={category}>Diets: </span>{diets.map(d => Object.values(d)).join(', ')}</p>}
+
+            {dishTypes && <p><span className={category}>Dish type: </span>{dishTypes}</p>}
 
             <h2 className={subtitle}>Summary</h2>
             <p className={p}>{summary?.replace(/<[^>]*>/g, '')}</p> {/* replace para eliminar las etiquetas fieras q me trae la api */}

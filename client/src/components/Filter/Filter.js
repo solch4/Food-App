@@ -19,6 +19,7 @@ function Filter({ setMinPageNumber, setMaxPageNumber, setActualPage }) {
       <span className={title}>Filter by </span>
       <select onChange={handleFilterByDiet} defaultValue='DEFAULT'>
         <option value='DEFAULT' disabled>--select diet--</option>
+        <option value='all'>All diets</option>
         {diets.length && diets.map(diet => 
           <option value={diet.name} key={diet.id}>{diet.name}</option>
         )}

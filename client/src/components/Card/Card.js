@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { imgHealthSContainer, img, card, body, title, healthS, diet } from './Card.module.css'
 
 function Card ({ id, image, name, diets, healthScore, createdInDB }) {
+  //healthscore heart color
   const color = () => {
     if (healthScore >= 66) return '#00761F'
     if (healthScore >= 33) return '#f1cd00'
@@ -24,7 +25,7 @@ function Card ({ id, image, name, diets, healthScore, createdInDB }) {
         <h3 className={title}>{name}</h3>
         {createdInDB
           ? <p className={diet}>{diets.map(d => Object.values(d)).join(', ')}</p>
-          : <p className={diet}>{diets.join(', ')}</p>}
+          : <p className={diet}>{diets}</p>}
       </div>
     </Link>
   );

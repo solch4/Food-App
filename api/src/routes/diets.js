@@ -24,10 +24,21 @@ router.get('/', async (req, res) => {
     });
   } */
 
-  const allDiet = allInfo.map(recipe => recipe.diets).flat()
+  //a la mitad cambié el tipo de dato de diets (de array a string) asiq bueno este tampoco me funcaba
+  /* const allDiet = allInfo.map(recipe => recipe.diets).flat()
   const allDietSet = new Set(allDiet)
   const allDietArray = [...allDietSet]
 
+  allDietArray.forEach(d => {
+    Diet.findOrCreate({
+      where: {
+        name: d
+      }
+    })
+  }) */
+
+  const allDiet = new Set(allInfo.map(r => r.diets).map(d => d.split(', ')).flat())
+  const allDietArray = [...allDiet].filter(d => d)
   allDietArray.forEach(d => {
     Diet.findOrCreate({
       where: {
