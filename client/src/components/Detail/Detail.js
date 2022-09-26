@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearDetail, deleteRecipe, getDetail } from '../../actions/actions';
 import backArrow from '../../assets/back-arrow.svg'
+import Detail404 from '../Detail404/Detail404';
 import { detailDiv, container, backBtn, body, img, title, category, subtitle, deleteEditBtnsContainer, deleteBtn, editBtn, p } from './Detail.module.css'
 
 //la info proveniente de la api y de la db son tipos de datos distintos, x eso antes de renderizar algunas cosas pregunto si es createdInDB
@@ -68,7 +69,7 @@ function Detail() {
         ) : (
           Array.isArray(detail)
             ? <h3>Loading...</h3>
-            : <h3>Recipe not found</h3>
+            : <Detail404 />
         )}
       </div>
     </div>
