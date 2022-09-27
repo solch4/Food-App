@@ -88,12 +88,12 @@ select {
 
 :root {
   --clr-main: #BE0309;
-  --clr-dark-main: #7A0000;
+  --clr-dark-main: #8A0000;
   
   --clr-black: #302523;
-  --clr-dark-grey: #88726D;
-  --clr-grey: #BEA6A0;
-  --clr-light-grey: #AB9D9A;
+  --clr-dark-grey: #7F5352;
+  --clr-grey: #BFA5A4;
+  --clr-light-grey: #af9a99;
 
   --ff-title: 'Cardo', serif;
   --ff-body: 'Hind', sans-serif;

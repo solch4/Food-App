@@ -1,15 +1,15 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { sortByHealthScore, sortByName } from '../../actions/actions';
+import { setActualPage, setMaxPageNumber, setMinPageNumber, sortByHealthScore, sortByName } from '../../actions/actions';
 import { sortContainer, title } from './Sort.module.css'
 
-function Sort({ setMinPageNumber, setMaxPageNumber,setActualPage, setSort }) {
+function Sort({ setSort }) {
   const dispatch = useDispatch()
   
   const handleSort = (e) => {
-    setActualPage(1)
-    setMinPageNumber(0)
-    setMaxPageNumber(5)  
+    dispatch(setActualPage(1))
+    dispatch(setMinPageNumber(0))
+    dispatch(setMaxPageNumber(5))
     setSort(e.target.value)
     if (e.target.value === 'nameAtoZ' || e.target.value === 'nameZtoA') dispatch(sortByName(e.target.value))
     if (e.target.value === 'moreHealthy' || e.target.value === 'lessHealthy') dispatch(sortByHealthScore(e.target.value))

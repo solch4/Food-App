@@ -1,8 +1,16 @@
 const initialState = {
-  recipes: [], //renderizo este state
-  allRecipes: [], // este state es solo para aplicar los filtros, es una copia de recipes
+  //renderizo recipes
+  recipes: [], 
+  // allRecipes es solo para aplicar los filtros allí, es una copia de recipes
+  allRecipes: [], 
   diets: [],
-  detail: []
+  detail: [],
+
+  //pagination states
+  actualPage: 1,
+  //min y max son para hacer el paginado más tikito y que quede lindo, uso ambos para hacer un slice y renderizar sólo ese pedazo
+  minPageNumber: 0,
+  maxPageNumber: 5
 };
 
 function rootReducer(state = initialState, action) {
@@ -96,6 +104,26 @@ function rootReducer(state = initialState, action) {
     case 'EDIT_RECIPE':
       return {
         ...state
+      };
+
+    //pagination
+
+    case 'SET_ACTUAL_PAGE':
+      return {
+        ...state,
+        actualPage: action.payload
+      };
+    
+    case 'SET_MIN_PAGE_NUMBER':
+      return {
+        ...state,
+        minPageNumber: action.payload
+      };
+
+    case 'SET_MAX_PAGE_NUMBER':
+      return {
+        ...state,
+        maxPageNumber: action.payload
       };
 
     default:

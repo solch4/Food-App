@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { searchByName } from '../../actions/actions';
+import { searchByName, setActualPage, setMaxPageNumber, setMinPageNumber } from '../../actions/actions';
 import { searchBar, input, btn } from './SearchBar.module.css'
 
-function SearchBar({ setMinPageNumber, setMaxPageNumber,setActualPage }) {
+function SearchBar() {
   const dispatch = useDispatch()
   const [searchInput, setSearchInput] = useState('')
   
@@ -12,9 +12,10 @@ function SearchBar({ setMinPageNumber, setMaxPageNumber,setActualPage }) {
     if (!searchInput.trim()) return
     
     dispatch(searchByName(searchInput.trim()))
-    setActualPage(1)
-    setMinPageNumber(0)
-    setMaxPageNumber(5)  
+    
+    dispatch(setActualPage(1))
+    dispatch(setMinPageNumber(0))
+    dispatch(setMaxPageNumber(5))
     setSearchInput('')
   }
 
