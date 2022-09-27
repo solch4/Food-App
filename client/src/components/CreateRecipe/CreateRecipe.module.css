@@ -99,7 +99,8 @@ textarea {
   cursor: pointer;
 }
 
-.submitBtn {
+.submitBtn,
+.submitBtnDISABLED {
   margin-top: 1.25rem;
   border: 1px solid var(--clr-main);
   border-radius: 8px;
@@ -114,6 +115,13 @@ textarea {
 .submitBtn:hover {
   background-color: white;
   color: var(--clr-main);
+}
+
+.submitBtnDISABLED {
+  border: 1px solid var(--clr-dark-main);
+  background-color: var(--clr-dark-main);
+  color: var(--clr-black);
+  cursor: not-allowed;
 }
 
 @media (min-width:540px){

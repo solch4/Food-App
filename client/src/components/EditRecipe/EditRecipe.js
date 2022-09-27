@@ -12,8 +12,10 @@ const imgRegexp = new RegExp('^https?:\/\/.+\.(jpg|jpeg|png|webp|avif|gif|svg)$'
 function validateText ({ name, summary, healthScore, image }) {
   const err = {}
 
-  if (name && name.length > 50) err.name = "Maximum number of characters: 50"
+  if (name && name.length > 50) err.name = `Maximum number of characters: 50 (${name.length}/50)`
   
+  if (summary.trim() && summary.trim().length < 10) err.summary = `Minimum number of characters: 10 (${summary.trim().length}/10)`
+
   if (healthScore && (healthScore > 100 || healthScore < 0)) err.healthScore = 'Should be a number between 0 and 100'
 
   if (image && !imgRegexp.test(image.trim())) err.image = 'Should be a valid URL'
@@ -94,7 +96,8 @@ function EditRecipe () {
           
           <label className={category}>Summary</label>
           <textarea value={input.summary} name='summary' onChange={handleChange} placeholder='Summary' />
-          
+          {err.summary && <p className={error}>{err.summary}</p>}
+
           <label className={category}>Health Score</label>
           <input value={input.healthScore} name='healthScore' onChange={handleChange} type='number' min={0} max={100} placeholder='Health Score (0 - 100%)' />
           {err.healthScore && <p className={error}>{err.healthScore}</p>}

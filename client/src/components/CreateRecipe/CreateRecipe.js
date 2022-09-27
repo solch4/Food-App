@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { createRecipe, getDiets } from '../../actions/actions';
 import backArrow from '../../assets/back-arrow.svg'
-import { formDiv, formContainer, backBtn, title, subtitle, form, obligatory, category, error, dietContainer, item, deleteBtn, submitBtn } from './CreateRecipe.module.css'
+import { formDiv, formContainer, backBtn, title, subtitle, form, obligatory, category, error, dietContainer, item, deleteBtn, submitBtn, submitBtnDISABLED } from './CreateRecipe.module.css'
 
 // eslint-disable-next-line no-useless-escape
 const imgRegexp = new RegExp('^https?:\/\/.+\.(jpg|jpeg|png|webp|avif|gif|svg)$')
@@ -15,10 +15,11 @@ function validateText ({ name, summary, healthScore, image }) {
 
   if (!name) err.name = 'Write the name'
   else if (isBlankSpace.test(name)) err.name = "Shouldn't be a blank space"
-  else if (name.length > 50) err.name = "Maximum number of characters: 50"
+  else if (name.trim().length > 50) err.name = `Maximum number of characters: 50 (${name.trim().length}/50)`
   
   if (!summary) err.summary = 'Write the summary'
   else if (isBlankSpace.test(summary)) err.summary = "Shouldn't be a blank space"
+  else if (summary.trim().length < 10) err.summary = `Minimum number of characters: 10 (${summary.trim().length}/10)`
 
   // optionals
   if (healthScore && (healthScore > 100 || healthScore < 0)) err.healthScore = 'Should be a number between 0 and 100'
@@ -50,6 +51,8 @@ function CreateRecipe () {
     setInput({...input, [e.target.name]: e.target.value})
     setErr(validateText({...input, [e.target.name]: e.target.value}))
   }
+
+  const isButtonDisabled = () => !(input.name && input.summary) || (Object.keys(err).length)
 
   const handleSelectDiet = (e) => {
     if (!selectedDiet.includes(e.target.value)) setSelectedDiet([...selectedDiet, e.target.value])
@@ -128,7 +131,7 @@ function CreateRecipe () {
             )}
           </ul>
           
-          <button className={submitBtn} type='submit'>Submit recipe</button>
+          <button disabled={isButtonDisabled()} className={isButtonDisabled() ? submitBtnDISABLED : submitBtn} type='submit'>Submit recipe</button>
         </form>
       </div>
     </div>
