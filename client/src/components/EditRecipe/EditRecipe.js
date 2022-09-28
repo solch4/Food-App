@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { editRecipe, getDiets } from '../../actions/actions';
+import { editRecipe, getDiets, getRecipes } from '../../actions/actions';
 import backArrow from '../../assets/back-arrow.svg'
 import { formDiv, formContainer, backBtn, title, form, category, error, dietContainer, item, deleteBtn, submitBtn } from './EditRecipe.module.css'
 
@@ -9,11 +9,12 @@ import { formDiv, formContainer, backBtn, title, form, category, error, dietCont
 const imgRegexp = new RegExp('^https?:\/\/.+\.(jpg|jpeg|png|webp|avif|gif|svg)$')
 
 // cb
-function validateText ({ name, summary, healthScore, image }) {
+function validateText ({ name, summary, healthScore, image }, existingNames) {
   const err = {}
 
   if (name && name.length > 50) err.name = `Maximum number of characters: 50 (${name.length}/50)`
-  
+  else if (name && existingNames[name.trim().toLowerCase()]) err.name = `The recipe ${name} already exists.`
+
   if (summary.trim() && summary.trim().length < 10) err.summary = `Minimum number of characters: 10 (${summary.trim().length}/10)`
 
   if (healthScore && (healthScore > 100 || healthScore < 0)) err.healthScore = 'Should be a number between 0 and 100'
@@ -25,6 +26,11 @@ function validateText ({ name, summary, healthScore, image }) {
 
 // component
 function EditRecipe () {
+  //me traigo las recipes para ver si el name ingresado del usuario ya existe. guardo todos los names en minús en un obj
+  const allRecipes = useSelector(state => state.allRecipes)
+  const existingNames = {}
+  for (const recipe of allRecipes) existingNames[recipe.name.toLowerCase()] = true
+
   const { id } = useParams()
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -44,7 +50,7 @@ function EditRecipe () {
 
   const handleChange = (e) => {
     setInput({...input, [e.target.name]: e.target.value})
-    setErr(validateText({...input, [e.target.name]: e.target.value}))
+    setErr(validateText({...input, [e.target.name]: e.target.value}, existingNames))
   }
 
   const handleSelectDiet = (e) => {
@@ -78,7 +84,9 @@ function EditRecipe () {
 
   useEffect(() => {
     dispatch(getDiets())
-  }, [dispatch])
+    /* si el estado allRecipes está vacío lo lleno, sino no */
+    !allRecipes.length && dispatch(getRecipes()) 
+  }, [dispatch, allRecipes])
 
   return (
     <div className={formDiv}>

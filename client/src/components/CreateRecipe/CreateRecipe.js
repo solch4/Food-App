@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { createRecipe, getDiets } from '../../actions/actions';
+import { createRecipe, getDiets, getRecipes } from '../../actions/actions';
 import backArrow from '../../assets/back-arrow.svg'
 import { formDiv, formContainer, backBtn, title, subtitle, form, obligatory, category, error, dietContainer, item, deleteBtn, submitBtn, submitBtnDISABLED } from './CreateRecipe.module.css'
 
@@ -10,12 +10,13 @@ const imgRegexp = new RegExp('^https?:\/\/.+\.(jpg|jpeg|png|webp|avif|gif|svg)$'
 const isBlankSpace = new RegExp("^\\s+$")
 
 // cb
-function validateText ({ name, summary, healthScore, image }) {
+function validateText ({ name, summary, healthScore, image }, existingNames) {
   const err = {}
 
   if (!name) err.name = 'Write the name'
   else if (isBlankSpace.test(name)) err.name = "Shouldn't be a blank space"
   else if (name.trim().length > 50) err.name = `Maximum number of characters: 50 (${name.trim().length}/50)`
+  else if (existingNames[name.trim().toLowerCase()]) err.name = `The recipe ${name} already exists.`
   
   if (!summary) err.summary = 'Write the summary'
   else if (isBlankSpace.test(summary)) err.summary = "Shouldn't be a blank space"
@@ -31,6 +32,11 @@ function validateText ({ name, summary, healthScore, image }) {
 
 // component
 function CreateRecipe () {
+  //me traigo las recipes para ver si el name ingresado del usuario ya existe. guardo todos los names en minús en un obj
+  const allRecipes = useSelector(state => state.allRecipes)
+  const existingNames = {}
+  for (const recipe of allRecipes) existingNames[recipe.name.toLowerCase()] = true
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const diets = useSelector(state => state.diets)
@@ -49,7 +55,7 @@ function CreateRecipe () {
 
   const handleChange = (e) => {
     setInput({...input, [e.target.name]: e.target.value})
-    setErr(validateText({...input, [e.target.name]: e.target.value}))
+    setErr(validateText({...input, [e.target.name]: e.target.value}, existingNames))
   }
 
   const isButtonDisabled = () => !(input.name && input.summary) || (Object.keys(err).length)
@@ -85,7 +91,9 @@ function CreateRecipe () {
 
   useEffect(() => {
     dispatch(getDiets())
-  }, [dispatch])
+    /* si el estado allRecipes está vacío lo lleno, sino no */
+    !allRecipes.length && dispatch(getRecipes()) 
+  }, [dispatch, allRecipes])
 
   return (
     <div className={formDiv}>
