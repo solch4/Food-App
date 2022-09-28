@@ -85,7 +85,6 @@ function CreateRecipe () {
     }
     console.log('newRecipe',newRecipe);
     dispatch(createRecipe(newRecipe))
-    alert("Recipe submitted! \nIf you don't see any changes, please refresh the page.")
     navigate('/home')
   }
 

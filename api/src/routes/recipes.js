@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
   const name = req.query.name
   const allInfo = await getAllInfo()
   if (name) {
-    const searchResults = await allInfo.filter(recipe => recipe.name.toLowerCase().includes(name.toLowerCase()))
+    const searchResults = allInfo.filter(recipe => recipe.name.toLowerCase().includes(name.toLowerCase()))
     searchResults.length 
       ? res.status(200).send(searchResults)
       : res.status(404).send('Recipe not found')
@@ -61,12 +61,12 @@ router.post('/', async (req, res) => {
       })
       newRecipe.addDiet(dietsAux)
       console.log('POST newRecipe:',newRecipe);
-      res.status(201).send('Recipe created successfully!')
+      res.status(201).send("Recipe submitted! \nIf you don't see any changes, please refresh the page.")
     } else res.status(400).send('Error 400: Bad request')
     
   } catch (e) {
     console.log('error post', e);
-    res.status(400).send('Something went wrong')
+    res.status(400).send('Error: Something went wrong')
   }
 })
 
@@ -80,12 +80,12 @@ router.delete('/:id', async (req, res) => {
       if (deleteRecipe) {
         await deleteRecipe.destroy()
         res.status(200).send('The recipe was successfully deleted')
-      } else res.status(404).send('Recipe ID not found')
-    } else res.status(400).send('Something went wrong')
+      } else res.status(404).send('ERROR: Recipe ID not found')
+    } else res.status(400).send('ERROR: Something went wrong')
   
   } catch (e) {
     console.log('Error DELETE', e);
-    res.status(400).send('Recipe ID is wrong')
+    res.status(400).send('ERROR: Recipe ID is wrong')
   }
 })
 
@@ -114,11 +114,11 @@ router.put('/:id/edit', async (req, res) => {
       }
 
       res.status(200).send("The recipe was successfully edited! \nIf you don't see any changes, please refresh the page.")
-    } else res.status(404).send('Recipe ID not found')
+    } else res.status(404).send('Error: Recipe ID not found')
     
   } catch (e) {
     console.log('ERROR PUT:', e);
-    res.status(400).send('Recipe ID is wrong')
+    res.status(400).send('Error: Recipe ID is wrong')
   }
 })
 

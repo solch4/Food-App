@@ -86,21 +86,29 @@ export function clearDetail () {
 
 export function createRecipe (newRecipe) {
   return async function (dispatch) {
-    const res = await axios.post(`${baseUrl}/recipes`, newRecipe)
-    dispatch({
-      type: 'CREATE_RECIPE',
-      payload: res.data
-    })
+    try {
+      const res = await axios.post(`${baseUrl}/recipes`, newRecipe)
+      alert(res.data)
+      dispatch({
+        type: 'CREATE_RECIPE'
+      })
+    } catch (e) {
+      alert(e.response.data)
+    }
   }
 }
 
 export function deleteRecipe (id) {
   return async function (dispatch) {
-    const res = await axios.delete(`${baseUrl}/recipes/${id}`)
-    alert(res.data)
-    dispatch({
-      type: 'DELETE_DOG'
-    })
+    try {
+      const res = await axios.delete(`${baseUrl}/recipes/${id}`)
+      alert(res.data)
+      dispatch({
+        type: 'DELETE_DOG'
+      })
+    } catch (e) {
+      alert(e.response.data)
+    }
   }
 }
 
