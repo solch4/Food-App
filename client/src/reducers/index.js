@@ -6,6 +6,8 @@ const initialState = {
   diets: [],
   detail: [],
 
+  scrollY: window.scrollY,
+
   //pagination states
   actualPage: 1,
   //min y max son para hacer el paginado más tikito y que quede lindo, uso ambos para hacer un slice y renderizar sólo ese pedazo
@@ -106,6 +108,12 @@ function rootReducer(state = initialState, action) {
         ...state
       };
 
+    case 'SAVE_SCROLL_Y':
+      return {
+        ...state,
+        scrollY: action.payload
+      };
+    
     //pagination
 
     case 'SET_ACTUAL_PAGE':

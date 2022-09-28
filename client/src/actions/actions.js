@@ -119,6 +119,13 @@ export function editRecipe (payload, id) {
   }
 }
 
+export function saveScrollY (n) {
+  return {
+    type: 'SAVE_SCROLL_Y',
+    payload: n
+  }
+}
+
 //pagination
 export function setActualPage (n) {
   return {

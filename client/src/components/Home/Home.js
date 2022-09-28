@@ -1,17 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom';
 import { getDiets, getRecipes, setActualPage, setMaxPageNumber, setMinPageNumber } from '../../actions/actions';
 import Filter from '../Filter/Filter';
 import Sort from '../Sort/Sort';
 import Pagination from '../Pagination/Pagination';
-import { Link } from 'react-router-dom';
 import Nav from '../Nav/Nav';
 import Cards from '../Cards/Cards';
 import ScrollToTopButton from '../ScrollToTopButton/ScrollToTopButton';
 import { App, homeContainer, menuContainer, sortFilter, refreshBtn, createRecipe } from './Home.module.css'
 
 function Home() {
-  const appTopRef = useRef()
+  const scrollY = useSelector(state => state.scrollY)
   const recipes = useSelector(state => state.recipes)
   const dispatch = useDispatch()
   const [, setSort] = useState('') //este state sólo sirve para re-renderizar la pág cuando hacemos un sort
@@ -27,6 +27,8 @@ function Home() {
   const maxPageNumber = useSelector(state => state.maxPageNumber)
 
   const pages = (pageNumber) => {
+    //al cambiar de pág scrolleo hasta el inicio
+    window.scrollTo(0, 0)
     dispatch(setActualPage(pageNumber))
     if(pageNumber >= maxPageNumber) {
       dispatch(setMinPageNumber(minPageNumber+4))
@@ -45,12 +47,15 @@ function Home() {
   }
 
   useEffect(() => {
+    //dispacho la action solo si mi estado está vacío (cuando entro x 1ra vez a la pag)
     !recipes.length && dispatch(getRecipes())
     dispatch(getDiets())
-  }, [dispatch, recipes,actualPage])
+    //para q vuelva a la misma parte de la pág q quedó el usuario antes de entrar a ver el detail
+    window.scrollTo(0, scrollY)
+  }, [dispatch, recipes, scrollY])
 
   return (
-    <div ref={appTopRef} className={App}>
+    <div className={App}>
       <Nav />
       <div className={homeContainer}>
         
@@ -65,12 +70,13 @@ function Home() {
             Submit your own recipe&nbsp;
             <Link to='/creation'>here</Link>!
           </h3>
+
           <Pagination recipesPerPage={recipesPerPage} pages={pages} />
         </div>
         
         <Cards actualRecipes={actualRecipes} />
       </div>
-      <ScrollToTopButton appTopRef={appTopRef} />
+      <ScrollToTopButton />
     </div>
   );
 }

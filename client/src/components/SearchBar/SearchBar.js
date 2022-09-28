@@ -12,11 +12,12 @@ function SearchBar() {
     if (!searchInput.trim()) return
     
     dispatch(searchByName(searchInput.trim()))
-    
     dispatch(setActualPage(1))
     dispatch(setMinPageNumber(0))
     dispatch(setMaxPageNumber(5))
     setSearchInput('')
+
+    window.scrollTo(0, 0)
   }
 
   const handleChange = (e) => setSearchInput(e.target.value)

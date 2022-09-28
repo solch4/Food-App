@@ -1,8 +1,14 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from "react-router-dom";
+import { saveScrollY } from '../../actions/actions';
 import { imgHealthSContainer, img, card, body, title, healthS, diet } from './Card.module.css'
 
 function Card ({ id, image, name, diets, healthScore, createdInDB }) {
+  const dispatch = useDispatch()
+  //para que no haga ese scroll fiero al volver al home dsp de ver el detail
+  const handleClick = () => dispatch(saveScrollY(window.scrollY))
+
   //healthscore heart color
   const color = () => {
     if (healthScore >= 66) return '#00761F'
@@ -11,7 +17,7 @@ function Card ({ id, image, name, diets, healthScore, createdInDB }) {
   }
 
   return (
-    <Link className={card} to={`/home/${id}`}>
+    <Link onClick={handleClick} className={card} to={`/home/${id}`}>
       <div className={imgHealthSContainer}>
         <img className={img} src={image} alt={name} />
         {healthScore && (
