@@ -32,8 +32,25 @@ export function searchByName (name) {
         payload: res.data
       })
     } catch (e) {
-      return dispatch({
+      dispatch({
         type: 'SEARCH_BY_NAME',
+        payload: e.response.data
+      })
+    }
+  }
+}
+
+export function searchByHS (hs) {
+  return async function (dispatch) {
+    try {
+      const res = await axios.get(`${baseUrl}/recipes?hs=${hs}`)
+      dispatch({
+        type: 'SEARCH_BY_HS',
+        payload: res.data
+      })
+    } catch (e) {
+      dispatch({
+        type: 'SEARCH_BY_HS',
         payload: e.response.data
       })
     }

@@ -10,13 +10,19 @@ const router = Router();
 Obtener un listado de las recetas que contengan la palabra ingresada como query parameter
 Si no existe ninguna receta mostrar un mensaje adecuado */
 router.get('/', async (req, res) => {
-  const name = req.query.name
+  const { name, hs } = req.query
   const allInfo = await getAllInfo()
+  
   if (name) {
     const searchResults = allInfo.filter(recipe => recipe.name.toLowerCase().includes(name.toLowerCase()))
     searchResults.length 
       ? res.status(200).send(searchResults)
       : res.status(404).send('Recipe not found')
+  } else if (hs) {
+    const searchResults = allInfo.filter(recipe => recipe.healthScore == hs)
+    searchResults.length 
+      ? res.status(200).send(searchResults)
+      : res.status(404).send(`Recipe not found`)
   }
   else res.status(200).send(allInfo)
 })

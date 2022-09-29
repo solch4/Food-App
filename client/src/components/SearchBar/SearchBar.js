@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { searchByName, setActualPage, setMaxPageNumber, setMinPageNumber } from '../../actions/actions';
+import { searchByHS, searchByName, setActualPage, setMaxPageNumber, setMinPageNumber } from '../../actions/actions';
 import { searchBar, input, btn } from './SearchBar.module.css'
 
 function SearchBar() {
@@ -10,8 +10,10 @@ function SearchBar() {
   const handleSearch = (e) => {
     e.preventDefault()
     if (!searchInput.trim()) return
-    
-    dispatch(searchByName(searchInput.trim()))
+
+    //si el input es un núm busco x healthscore, sino por name
+    !isNaN(searchInput.trim()) ? dispatch(searchByHS(searchInput.trim())) : dispatch(searchByName(searchInput.trim()))
+
     dispatch(setActualPage(1))
     dispatch(setMinPageNumber(0))
     dispatch(setMaxPageNumber(5))
