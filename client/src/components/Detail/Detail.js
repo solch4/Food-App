@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearDetail, deleteRecipe, getDetail } from '../../actions/actions';
@@ -14,16 +14,19 @@ function Detail() {
   const detail = useSelector(state => state.detail)
   const { image, name, diets, healthScore, summary, instructions, dishTypes, createdInDB } = detail
 
+  //component did mount
   useEffect(() => {
-    console.log('me toy montando/actualizando');
+    console.log('me toy montando');
     dispatch(getDetail(id))
-  },[dispatch, id])
+  }, [dispatch, id])
 
-  // uso el useLayoutEffect pq el useffect me mostraba x 0.000000001 seg el detalle anterior
-  useLayoutEffect(() => {
-    console.log('me toy muriendo (espero)');
-    dispatch(clearDetail())
-  },[dispatch])
+  //component will unmount
+  useEffect(() => {
+    return () => {
+      console.log('me toy muriendo (espero)');
+      dispatch(clearDetail())
+    }
+  }, [dispatch])
   
   const handleGoBack = () => navigate(-1)
 
