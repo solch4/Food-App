@@ -24,6 +24,7 @@ function validateText ({ name, summary, healthScore, image }, existingNames) {
 
   // optionals
   if (healthScore && (healthScore > 100 || healthScore < 0)) err.healthScore = 'Should be a number between 0 and 100'
+  else if (healthScore && isNaN(healthScore)) err.healthScore = 'Should be a number'
 
   if (image && !imgRegexp.test(image.trim())) err.image = 'Should be a valid URL'
   
@@ -114,7 +115,7 @@ function CreateRecipe () {
           {err.summary && <p className={error}>{err.summary}</p>}
           
           <label className={category}>Health Score</label>
-          <input value={input.healthScore} name='healthScore' onChange={handleChange} type='number' min={0} max={100} placeholder='Health Score (0 - 100%)' />
+          <input value={input.healthScore} name='healthScore' onChange={handleChange} type='text' placeholder='Health Score (0 - 100%)' />
           {err.healthScore && <p className={error}>{err.healthScore}</p>}
           
           <label className={category}>Instructions</label>
