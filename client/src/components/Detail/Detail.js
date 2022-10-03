@@ -29,11 +29,12 @@ function Detail() {
     const hasSomething = JSON.parse(localStorage.getItem('favorites'))
     const IDs = JSON.parse(localStorage.getItem('IDs'))
 
-    //si no tengo nada en fav lo añado x 1ra vez
+    //si no tengo nada en fav => lo añado x 1ra vez
     if (!hasSomething) {
       localStorage.setItem('favorites', JSON.stringify([detail]));
       localStorage.setItem('IDs', JSON.stringify([detail.id]));
       setIsFavorite(true)
+      alert(`${name} added to favorites.`)
     }
     //si ya tengo algo en fav
     else {
