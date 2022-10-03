@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
-import { getDiets, getRecipes, setActualPage, setMaxPageNumber, setMinPageNumber } from '../../actions/actions';
+import { getDiets, getRecipes, saveScrollY, setActualPage, setMaxPageNumber, setMinPageNumber } from '../../actions/actions';
 import Filter from '../Filter/Filter';
 import Sort from '../Sort/Sort';
 import Pagination from '../Pagination/Pagination';
@@ -44,13 +44,17 @@ function Home() {
     dispatch(setMinPageNumber(0))
     dispatch(setMaxPageNumber(5)  )
     dispatch(getRecipes())
+
+    //scrolleo al top de la pág
+    dispatch(saveScrollY(0))
   }
 
   useEffect(() => {
     //dispacho la action solo si mi estado está vacío (cuando entro x 1ra vez a la pag)
     !recipes.length && dispatch(getRecipes())
     dispatch(getDiets())
-    //para q vuelva a la misma parte de la pág q quedó el usuario antes de entrar a ver el detail
+
+    //para volver a la misma parte de la pág q quedó el usuario antes de ver el detail
     window.scrollTo(0, scrollY)
   }, [dispatch, recipes, scrollY])
 

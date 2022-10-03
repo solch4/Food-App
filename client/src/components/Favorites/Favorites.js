@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import Card from "../Card/Card";
 import Nav from "../Nav/Nav";
 import ScrollToTopButton from '../ScrollToTopButton/ScrollToTopButton'
-import { container, noFavs } from './Favorites.module.css'
 import cross from "../../assets/fork-and-knife-in-cross.svg";
+import { container, noFavs } from './Favorites.module.css'
 
 function Favorites() {
   const storage = JSON.parse(localStorage.getItem("favorites"));
+  const scrollY = useSelector(state => state.scrollY)
+
+  useEffect(()=> {
+    //para volver a la misma parte de la pág q quedó el usuario antes de ver el detail
+    window.scrollTo(0, scrollY)
+  }, [scrollY])
 
   return (
     <>
