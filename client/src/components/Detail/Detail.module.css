@@ -51,7 +51,6 @@
 
 .img {
   border-radius: 4px;
-  margin-block: 1.25rem 1.5rem;
   width: 100%;
   max-height: 450px;
   object-fit: cover;
@@ -59,6 +58,24 @@
 
 .p {
   margin: .25em 0;
+}
+
+.imgFavBtnContainer {
+  position: relative;
+  margin-block: 1.25rem 1.5rem;
+}
+
+.favBtn {
+  background-color: rgba(255, 255, 255, 0.95);
+  border: none;
+  border-radius: 6px 0 0 0;
+  font-size: 2.25rem;
+  width: 1.1em;
+  height: 1.1em;
+  line-height: 1;
+  position: absolute;
+  right: 0;
+  bottom: 0;
 }
 
 .category {

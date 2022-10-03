@@ -93,7 +93,7 @@ select {
   --clr-black: #302523;
   --clr-dark-grey: #7F5352;
   --clr-grey: #BFA5A4;
-  --clr-light-grey: #af9a99;
+  --clr-light-grey: #d4bebd;
 
   --ff-title: 'Cardo', serif;
   --ff-body: 'Hind', sans-serif;
@@ -114,13 +114,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
   height: 10px;
 }
 ::-webkit-scrollbar-track { /* track */
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb { /* Handle */
-  background: var(--clr-light-grey); 
+  background: var(--clr-grey); 
   border-radius: 4px;
 }

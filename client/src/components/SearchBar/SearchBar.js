@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { searchByHS, searchByName, setActualPage, setMaxPageNumber, setMinPageNumber } from '../../actions/actions';
 import { searchBar, input, btn } from './SearchBar.module.css'
 
 function SearchBar() {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [searchInput, setSearchInput] = useState('')
   
   const handleSearch = (e) => {
@@ -18,6 +20,9 @@ function SearchBar() {
     dispatch(setMinPageNumber(0))
     dispatch(setMaxPageNumber(5))
     setSearchInput('')
+
+    //si estoy en /favorites vuelvo al /home
+    navigate('/home')
 
     window.scrollTo(0, 0)
   }

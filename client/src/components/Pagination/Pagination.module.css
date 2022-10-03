@@ -2,7 +2,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* margin-block: 2rem 6rem; */
   list-style: none;
   transition: .1s;
 }
@@ -30,7 +29,7 @@
 }
 
 .pageNumberDISABLED {
-  background-color: var(--clr-light-grey);
+  opacity: .3;
   cursor: not-allowed;
 }
 

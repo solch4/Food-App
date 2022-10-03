@@ -1,0 +1,23 @@
+.container {
+  padding-block: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-inline: .5rem;
+}
+
+@media (min-width: 600px) {
+  .container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: stretch;
+  }
+}
+
+@media (min-width: 850px) {
+  .container {
+    position: relative;
+    top: 5.4rem;
+  }
+}

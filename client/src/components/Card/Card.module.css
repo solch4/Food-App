@@ -2,14 +2,15 @@
   text-decoration: none;
   text-align: left;
   color: inherit;
-  box-shadow: var(--clr-light-grey) 0px 0px 4px;
+  background-color: white;
+  box-shadow: var(--clr-light-grey) 0px 1px 4px 0px;
   border-radius: 8px;
   width: 270px;
   margin: .75rem;
   transition: 0.2s ease-out;
 }
 .card:hover {
-  box-shadow: var(--clr-light-grey) 0px 0px 8px;
+  box-shadow: var(--clr-light-grey) 0px 1px 8px 0px;
 }
 
 .imgHealthSContainer {
