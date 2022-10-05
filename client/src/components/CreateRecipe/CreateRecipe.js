@@ -84,14 +84,14 @@ function CreateRecipe () {
       image: input.image.trim(),
       diets: selectedDiet
     }
-    console.log('newRecipe',newRecipe);
+    // console.log('newRecipe',newRecipe);
     dispatch(createRecipe(newRecipe))
     navigate('/home')
   }
 
   useEffect(() => {
     dispatch(getDiets())
-    /* si el estado allRecipes está vacío lo lleno, sino no */
+    // si el estado allRecipes está vacío lo lleno, sino no
     !allRecipes.length && dispatch(getRecipes()) 
   }, [dispatch, allRecipes])
 

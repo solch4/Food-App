@@ -6,37 +6,10 @@ const router = Router();
 
 // '/diets'
 
-/* GET /diets:
-Obtener todos los tipos de dieta posibles
-En una primera instancia, cuando no exista ninguno, deberán precargar la base de datos
-con los tipos de datos indicados por spoonacular acá */
+/* GET /diets */
 router.get('/', async (req, res) => {
   const allInfo = await getApiInfo()
   
-  // este no me funcó pq algunas dietas me las guarda repetidas
-  /* for (const recipe of allInfo) {
-    recipe.diet.forEach(d => {
-      Diet.findOrCreate({
-        where: {
-          name: d
-        }
-      })
-    });
-  } */
-
-  //a la mitad cambié el tipo de dato de diets (de array a string) asiq bueno este tampoco me funcaba
-  /* const allDiet = allInfo.map(recipe => recipe.diets).flat()
-  const allDietSet = new Set(allDiet)
-  const allDietArray = [...allDietSet]
-
-  allDietArray.forEach(d => {
-    Diet.findOrCreate({
-      where: {
-        name: d
-      }
-    })
-  }) */
-
   const allDiet = new Set(allInfo.map(r => r.diets).map(d => d.split(', ')).flat())
   const allDietArray = [...allDiet].filter(d => d)
   allDietArray.forEach(d => {

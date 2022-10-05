@@ -6,9 +6,7 @@ const router = Router();
 
 // '/recipes'
 
-/* GET /recipes?name="...":
-Obtener un listado de las recetas que contengan la palabra ingresada como query parameter
-Si no existe ninguna receta mostrar un mensaje adecuado */
+/* GET /recipes?name="..." */
 router.get('/', async (req, res) => {
   const { name, hs } = req.query
   const allInfo = await getAllInfo()
@@ -27,10 +25,7 @@ router.get('/', async (req, res) => {
   else res.status(200).send(allInfo)
 })
 
-/* GET /recipes/{idReceta}:
-Obtener el detalle de una receta en particular
-Debe traer solo los datos pedidos en la ruta de detalle de receta
-Incluir los tipos de dieta asociados */
+/* GET /recipes/{idReceta} */
 router.get('/:id', async (req, res) => {
   try {
     const id = req.params.id
@@ -45,9 +40,7 @@ router.get('/:id', async (req, res) => {
   }
 })
 
-/* POST /recipes:
-Recibe los datos recolectados desde el formulario controlado de la ruta de creación de recetas por body
-Crea una receta en la base de datos relacionada con sus tipos de dietas. */
+/* POST /recipes */
 router.post('/', async (req, res) => {
   try {
     const { name, summary, healthScore, instructions, image, diets } = req.body
@@ -66,7 +59,7 @@ router.post('/', async (req, res) => {
         }
       })
       newRecipe.addDiet(dietsAux)
-      console.log('POST newRecipe:',newRecipe);
+      // console.log('POST newRecipe:',newRecipe);
       res.status(201).send("Recipe submitted! \nIf you don't see any changes, please refresh the page.")
     } else res.status(400).send('Error 400: Bad request')
     
@@ -76,6 +69,7 @@ router.post('/', async (req, res) => {
   }
 })
 
+/* DELETE /recipes/{idReceta} */
 router.delete('/:id', async (req, res) => {
   const id = req.params.id
   try {
@@ -95,13 +89,14 @@ router.delete('/:id', async (req, res) => {
   }
 })
 
+/* PUT /recipes/{idReceta}/edit */
 router.put('/:id/edit', async (req, res) => {
   const id = req.params.id
   const { name, summary, instructions } = req.body
 
   try {
     const editableRecipe = await Recipe.findByPk(id)
-    console.log('editableRecipe', editableRecipe);
+    // console.log('editableRecipe', editableRecipe);
 
     if (Object.keys(editableRecipe).length) {
       if (name) req.body.name = name[0].toUpperCase() + name.slice(1) //si modifican el name, lo paso a mayus

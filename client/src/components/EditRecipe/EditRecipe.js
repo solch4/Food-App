@@ -78,14 +78,14 @@ function EditRecipe () {
     if(input.image.trim()) dataEditRecipe.image = input.image.trim()
     if(selectedDiet.length) dataEditRecipe.diets = selectedDiet
 
-    console.log('dataEditRecipe',dataEditRecipe);
+    // console.log('dataEditRecipe',dataEditRecipe);
     dispatch(editRecipe(dataEditRecipe, id))
     navigate('/home')
   }
 
   useEffect(() => {
     dispatch(getDiets())
-    /* si el estado allRecipes está vacío lo lleno, sino no */
+    // si el estado allRecipes está vacío lo lleno, sino no
     !allRecipes.length && dispatch(getRecipes()) 
   }, [dispatch, allRecipes])
 

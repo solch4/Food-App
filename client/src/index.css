@@ -75,17 +75,6 @@ select {
 @import url('https://fonts.googleapis.com/css2?family=Hind:wght@300;400;500;600;700&display=swap');
 /* body: 'Hind', sans-serif; */
 
-@import url('https://fonts.googleapis.com/css2?family=Philosopher:wght@400;700&display=swap');
-/* title: 'Philosopher', sans-serif; */
-@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800;900&display=swap');
-/* body: 'Mulish', sans-serif; */
-
-@import url('https://fonts.googleapis.com/css2?family=Rufina:wght@400;700&display=swap');
-/* title: 'Rufina', serif; */
-@import url('https://fonts.googleapis.com/css2?family=Average+Sans&display=swap');
-/* body: 'Average Sans', sans-serif; */
-
-
 :root {
   --clr-main: #BE0309;
   --clr-dark-main: #8A0000;
@@ -97,10 +86,6 @@ select {
 
   --ff-title: 'Cardo', serif;
   --ff-body: 'Hind', sans-serif;
-  /* --ff-title: 'Philosopher', sans-serif;
-  --ff-body: 'Mulish', sans-serif; */
-  /* --ff-title: 'Rufina', serif;
-  --ff-body: 'Average Sans', sans-serif; */
 }
 
 body {
@@ -117,7 +102,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 8px;
   height: 10px;
 }
-::-webkit-scrollbar-track { /* track */
+::-webkit-scrollbar-track {
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb { /* Handle */

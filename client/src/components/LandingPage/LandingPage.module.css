@@ -40,7 +40,7 @@
 @keyframes start {
   0% {
     transform: translateY(1.25rem);
-    opacity: .25;
+    opacity: .1;
   }
 }
 
