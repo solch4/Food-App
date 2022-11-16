@@ -1,7 +1,7 @@
 const initialState = {
-  //renderizo recipes
+  //renderizo siempre recipes, pueden estar filtradas u ordenadas
   recipes: [], 
-  // allRecipes es solo para aplicar los filtros allí, es una copia de recipes
+  // allRecipes es para aplicar los filtros, contiene el 100% de recipes existentes
   allRecipes: [], 
   diets: [],
   detail: [],
@@ -10,9 +10,12 @@ const initialState = {
 
   //pagination states
   actualPage: 1,
-  //min y max son para hacer el paginado más tikito y que quede lindo, uso ambos para hacer un slice y renderizar sólo ese pedazo
   minPageNumber: 0,
-  maxPageNumber: 5
+  maxPageNumber: 5,
+
+  //select values home
+  filterSelectValue: 'DEFAULT',
+  sortSelectValue: 'DEFAULT'
 };
 
 function rootReducer(state = initialState, action) {
@@ -138,6 +141,20 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         maxPageNumber: action.payload
+      };
+    
+    //select values home
+
+    case 'SET_FILTER_SELECT_VALUE':
+      return {
+        ...state,
+        filterSelectValue: action.payload
+      };
+    
+    case 'SET_SORT_SELECT_VALUE':
+      return {
+        ...state,
+        sortSelectValue: action.payload
       };
 
     default:

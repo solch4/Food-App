@@ -170,3 +170,17 @@ export function setMaxPageNumber (n) {
     payload: n
   }
 }
+
+//select values home
+export function setFilterSelectValue (payload) {
+  return {
+    type: 'SET_FILTER_SELECT_VALUE',
+    payload
+  }
+}
+export function setSortSelectValue (payload) {
+  return {
+    type: 'SET_SORT_SELECT_VALUE',
+    payload
+  }
+}

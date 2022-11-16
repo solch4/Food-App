@@ -1,12 +1,14 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { setActualPage, setMaxPageNumber, setMinPageNumber, sortByHealthScore, sortByName } from '../../actions/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { setActualPage, setMaxPageNumber, setMinPageNumber, setSortSelectValue, sortByHealthScore, sortByName } from '../../actions/actions';
 import { sortContainer, title } from './Sort.module.css'
 
 function Sort({ setSort }) {
   const dispatch = useDispatch()
+  const sortSelectValue = useSelector(state => state.sortSelectValue)
   
   const handleSort = (e) => {
+    dispatch(setSortSelectValue(e.target.value))
     dispatch(setActualPage(1))
     dispatch(setMinPageNumber(0))
     dispatch(setMaxPageNumber(5))
@@ -18,7 +20,7 @@ function Sort({ setSort }) {
   return (
     <div className={sortContainer}>
       <span className={title}>Sort by </span>
-      <select onChange={handleSort} defaultValue='DEFAULT'>
+      <select onChange={handleSort} value={sortSelectValue}>
         <option value='DEFAULT' disabled>--select sort--</option>
         <option value='nameAtoZ'>Name (A-Z)</option>
         <option value='nameZtoA'>Name (Z-A)</option>

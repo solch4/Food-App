@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
-import { getDiets, getRecipes, saveScrollY, setActualPage, setMaxPageNumber, setMinPageNumber } from '../../actions/actions';
+import { getDiets, getRecipes, saveScrollY, setActualPage, setFilterSelectValue, setMaxPageNumber, setMinPageNumber, setSortSelectValue } from '../../actions/actions';
 import Filter from '../Filter/Filter';
 import Sort from '../Sort/Sort';
 import Pagination from '../Pagination/Pagination';
@@ -44,6 +44,8 @@ function Home() {
     dispatch(setMinPageNumber(0))
     dispatch(setMaxPageNumber(5)  )
     dispatch(getRecipes())
+    dispatch(setSortSelectValue('DEFAULT'))
+    dispatch(setFilterSelectValue('DEFAULT'))
 
     //scrolleo al top de la pág
     dispatch(saveScrollY(0))
