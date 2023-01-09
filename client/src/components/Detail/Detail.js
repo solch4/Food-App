@@ -11,7 +11,7 @@ function Detail() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { id } = useParams()
-  const detail = useSelector(state => state.detail)
+  const { detail } = useSelector(state => state.recipes)
   const { image, name, diets, healthScore, summary, instructions, dishTypes, createdInDB } = detail
   const [isFavorite, setIsFavorite] = useState(JSON.parse(localStorage.getItem('IDs'))?.includes(detail.id))
   

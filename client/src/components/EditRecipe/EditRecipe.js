@@ -28,14 +28,14 @@ function validateText ({ name, summary, healthScore, image }, existingNames) {
 // component
 function EditRecipe () {
   //me traigo las recipes para ver si el name ingresado del usuario ya existe. guardo todos los names en minús en un obj
-  const allRecipes = useSelector(state => state.allRecipes)
+  const { allRecipes } = useSelector(state => state.recipes)
   const existingNames = {}
   for (const recipe of allRecipes) existingNames[recipe.name.toLowerCase()] = true
 
   const { id } = useParams()
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const diets = useSelector(state => state.diets)
+  const { diets } = useSelector(state => state.diets)
   const [selectedDiet, setSelectedDiet] = useState([])
   const [err, setErr] = useState({})
   const [input, setInput] = useState({

@@ -11,20 +11,18 @@ import ScrollToTopButton from '../ScrollToTopButton/ScrollToTopButton';
 import { App, homeContainer, menuContainer, sortFilter, refreshBtn, createRecipe } from './Home.module.css'
 
 function Home() {
-  const scrollY = useSelector(state => state.scrollY)
-  const recipes = useSelector(state => state.recipes)
+  const { scrollY } = useSelector(state => state.ux)
+  const { recipes } = useSelector(state => state.recipes)
   const dispatch = useDispatch()
   const [, setSort] = useState('') //este state sólo sirve para re-renderizar la pág cuando hacemos un sort
 
   //pagination
-  const actualPage = useSelector(state => state.actualPage)
+  //minPageNumber y maxPageNumber son para hacer el paginado más tikito y que quede lindo, uso ambos para hacer un slice y renderizar sólo ese pedazo
+  const { actualPage, minPageNumber, maxPageNumber } = useSelector(state => state.pagination)
   const recipesPerPage = 9
   const indexOfLastRecipe = actualPage * recipesPerPage //last recipe per page
   const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage //1st recipe per page
   const actualRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe)
-  //minPageNumber y maxPageNumber son para hacer el paginado más tikito y que quede lindo, uso ambos para hacer un slice y renderizar sólo ese pedazo
-  const minPageNumber = useSelector(state => state.minPageNumber)
-  const maxPageNumber = useSelector(state => state.maxPageNumber)
 
   const pages = (pageNumber) => {
     //al cambiar de pág scrolleo hasta el inicio

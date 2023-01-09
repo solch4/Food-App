@@ -5,8 +5,8 @@ import { filterContainer, title } from './Filter.module.css'
 
 function Filter() {
   const dispatch = useDispatch()
-  const diets = useSelector(state => state.diets)
-  const filterSelectValue = useSelector(state => state.filterSelectValue)
+  const { diets } = useSelector(state => state.diets)
+  const { filterSelectValue } = useSelector(state => state.ux)
 
   const handleFilterByDiet = (e) => {
     dispatch(setFilterSelectValue(e.target.value))

@@ -5,7 +5,7 @@ import { sortContainer, title } from './Sort.module.css'
 
 function Sort({ setSort }) {
   const dispatch = useDispatch()
-  const sortSelectValue = useSelector(state => state.sortSelectValue)
+  const { sortSelectValue } = useSelector(state => state.ux)
   
   const handleSort = (e) => {
     dispatch(setSortSelectValue(e.target.value))

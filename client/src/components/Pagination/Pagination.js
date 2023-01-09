@@ -5,7 +5,8 @@ import rightArrow from '../../assets/arrow-right.svg'
 import { pagination, active, disabled, arrow } from "./Pagination.module.css";
 
 function Pagination({ recipesPerPage, pages }) {
-  const { recipes, actualPage, minPageNumber, maxPageNumber } = useSelector(state => state)
+  const { recipes } = useSelector(state => state.recipes)
+  const { actualPage, minPageNumber, maxPageNumber } = useSelector(state => state.pagination)
 
   const arrPageNumbers = [];
   //pregunto si es un array para tener una sola pág cuando tenga el string de recipe not found
