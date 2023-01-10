@@ -85,18 +85,29 @@ function recipesReducer(state = initialState, action) {
       };
 
     case 'CREATE_RECIPE':
+      const allRecipes = [...state.allRecipes, action.payload]
       return {
-        ...state
+        ...state,
+        allRecipes: allRecipes,
+        recipes: allRecipes,
       };
 
     case 'DELETE_RECIPE':
+      const recipesFiltered = state.allRecipes.filter(r => r.id !== action.payload)
       return {
-        ...state
+        ...state,
+        allRecipes: recipesFiltered,
+        recipes: recipesFiltered,
       };
     
     case 'EDIT_RECIPE':
+      const allRecipesCopy = state.allRecipes
+      const index = allRecipesCopy.findIndex(r => r.id === action.payload.id)
+      allRecipesCopy.splice(index, 1, action.payload)
       return {
-        ...state
+        ...state,
+        allRecipes: allRecipesCopy,
+        recipes: allRecipesCopy,
       };
   
     default:

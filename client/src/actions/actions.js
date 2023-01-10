@@ -104,10 +104,11 @@ export function clearDetail () {
 export function createRecipe (newRecipe) {
   return async function (dispatch) {
     try {
-      const res = await axios.post(`${baseUrl}/recipes`, newRecipe)
-      alert(res.data)
+      const { data } = await axios.post(`${baseUrl}/recipes`, newRecipe)
+      alert(data.message)
       dispatch({
-        type: 'CREATE_RECIPE'
+        type: 'CREATE_RECIPE',
+        payload: data.newRecipe
       })
     } catch (e) {
       alert(e.response.data)
@@ -118,10 +119,11 @@ export function createRecipe (newRecipe) {
 export function deleteRecipe (id) {
   return async function (dispatch) {
     try {
-      const res = await axios.delete(`${baseUrl}/recipes/${id}`)
-      alert(res.data)
+      const { data } = await axios.delete(`${baseUrl}/recipes/${id}`)
+      alert(data.message)
       dispatch({
-        type: 'DELETE_DOG'
+        type: 'DELETE_RECIPE',
+        payload: data.id
       })
     } catch (e) {
       alert(e.response.data)
@@ -132,12 +134,12 @@ export function deleteRecipe (id) {
 export function editRecipe (payload, id) {
   return async function (dispatch) {
     try {
-      const res = await axios.put(`${baseUrl}/recipes/${id}/edit`, payload)
-      alert(res.data)
+      const { data } = await axios.put(`${baseUrl}/recipes/${id}/edit`, payload)
+      alert(data.message)
       dispatch({
-        type: 'EDIT_RECIPE'
+        type: 'EDIT_RECIPE',
+        payload: data.editedRecipe
       })
-      
     } catch (e) {
       alert(e.response.data)
     }
