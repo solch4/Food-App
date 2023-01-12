@@ -80,7 +80,7 @@ function CreateRecipe () {
       name: input.name.trim(),
       summary: input.summary.trim(),
       healthScore: input.healthScore ? Math.floor(input.healthScore) : null,
-      instructions: input.instructions.trim(),
+      instructions: input.instructions.trim() ? [input.instructions.trim()] : [],
       image: input.image.trim(),
       diets: selectedDiet
     }
