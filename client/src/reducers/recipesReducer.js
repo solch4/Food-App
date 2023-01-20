@@ -4,34 +4,64 @@ const initialState = {
   // allRecipes es para aplicar los filtros, contiene el 100% de recipes existentes
   allRecipes: [],
   detail: [],
+  loading: false,
+  error: '',
 };
 
 function recipesReducer(state = initialState, action) {
   switch (action.type) {
+    case "LOADING_RECIPES":
+      return {
+        ...state,
+        recipes: [],
+        loading: true,
+      };
+
     case "GET_RECIPES":
       return {
         ...state,
         recipes: action.payload,
         allRecipes: action.payload,
+        loading: false,
+        error: false,
       };
 
-    case "SEARCH_BY_NAME":
+    case "SEARCH_BY_NAME_SUCCESS":
       return {
         ...state,
         recipes: action.payload,
+        loading: false,
+        error: false,
+      };
+    
+    case "SEARCH_BY_NAME_ERROR":
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
       };
 
-    case "SEARCH_BY_HS":
+    case "SEARCH_BY_HS_SUCCESS":
       return {
         ...state,
         recipes: action.payload,
+        loading: false,
+        error: false,
       };
 
+    case "SEARCH_BY_HS_ERROR":
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+  
     case "FILTER_BY_DIET":
       const filteredRecipes = action.payload === 'all' ? state.allRecipes : state.allRecipes.filter(recipe => recipe.diets.includes(action.payload))
       return {
         ...state,
-        recipes: filteredRecipes
+        recipes: filteredRecipes,
+        error: '',
       };
 
     case 'SORT_BY_NAME':
@@ -90,6 +120,7 @@ function recipesReducer(state = initialState, action) {
         ...state,
         allRecipes: allRecipes,
         recipes: allRecipes,
+        error: false,
       };
 
     case 'DELETE_RECIPE':

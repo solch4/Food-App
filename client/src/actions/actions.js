@@ -4,6 +4,7 @@ const baseUrl = 'http://localhost:3001'
 
 export function getRecipes () {
   return async function (dispatch) {
+    dispatch({ type: 'LOADING_RECIPES' })
     const res = await axios.get(`${baseUrl}/recipes`)
     dispatch({
       type: 'GET_RECIPES',
@@ -26,14 +27,15 @@ export function getDiets () {
 export function searchByName (name) {
   return async function (dispatch) {
     try {
+      dispatch({ type: 'LOADING_RECIPES' })
       const res = await axios.get(`${baseUrl}/recipes?name=${name}`)
       dispatch({
-        type: 'SEARCH_BY_NAME',
+        type: 'SEARCH_BY_NAME_SUCCESS',
         payload: res.data
       })
     } catch (e) {
       dispatch({
-        type: 'SEARCH_BY_NAME',
+        type: 'SEARCH_BY_NAME_ERROR',
         payload: e.response.data
       })
     }
@@ -43,14 +45,15 @@ export function searchByName (name) {
 export function searchByHS (hs) {
   return async function (dispatch) {
     try {
+      dispatch({ type: 'LOADING_RECIPES' })
       const res = await axios.get(`${baseUrl}/recipes?hs=${hs}`)
       dispatch({
-        type: 'SEARCH_BY_HS',
+        type: 'SEARCH_BY_HS_SUCCESS',
         payload: res.data
       })
     } catch (e) {
       dispatch({
-        type: 'SEARCH_BY_HS',
+        type: 'SEARCH_BY_HS_ERROR',
         payload: e.response.data
       })
     }

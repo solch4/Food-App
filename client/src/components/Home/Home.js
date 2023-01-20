@@ -12,7 +12,7 @@ import { App, homeContainer, menuContainer, sortFilter, refreshBtn, createRecipe
 
 function Home() {
   const { scrollY } = useSelector(state => state.ux)
-  const { recipes } = useSelector(state => state.recipes)
+  const { allRecipes, recipes } = useSelector(state => state.recipes)
   const dispatch = useDispatch()
   const [, setSort] = useState('') //este state sólo sirve para re-renderizar la pág cuando hacemos un sort
 
@@ -51,12 +51,12 @@ function Home() {
 
   useEffect(() => {
     //dispacho la action solo si mi estado está vacío (cuando entro x 1ra vez a la pag)
-    !recipes.length && dispatch(getRecipes())
+    !allRecipes.length && dispatch(getRecipes())
     dispatch(getDiets())
 
     //para volver a la misma parte de la pág q quedó el usuario antes de ver el detail
     window.scrollTo(0, scrollY)
-  }, [dispatch, recipes, scrollY])
+  }, [dispatch, allRecipes, scrollY])
 
   return (
     <div className={App}>
