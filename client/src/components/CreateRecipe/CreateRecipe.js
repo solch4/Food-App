@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { createRecipe, getDiets, getRecipes } from '../../actions/actions';
+import { createRecipe, getDiets, getRecipes } from '../../redux/actions/actions';
 import backArrow from '../../assets/back-arrow.svg'
 import { formDiv, formContainer, backBtn, title, subtitle, form, obligatory, category, error, dietContainer, item, deleteBtn, submitBtn, submitBtnDISABLED } from './CreateRecipe.module.css'
 

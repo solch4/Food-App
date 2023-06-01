@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterByDiet, setActualPage, setFilterSelectValue, setMaxPageNumber, setMinPageNumber } from '../../actions/actions';
+import { filterByDiet, setActualPage, setFilterSelectValue, setMaxPageNumber, setMinPageNumber } from '../../redux/actions/actions';
 import { filterContainer, title } from './Filter.module.css'
 
 function Filter() {

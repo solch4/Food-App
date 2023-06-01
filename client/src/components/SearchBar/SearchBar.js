@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { saveScrollY, searchByHS, searchByName, setActualPage, setMaxPageNumber, setMinPageNumber } from '../../actions/actions';
+import { saveScrollY, searchByHS, searchByName, setActualPage, setMaxPageNumber, setMinPageNumber } from '../../redux/actions/actions';
 import { searchBar, input, btn } from './SearchBar.module.css'
 
 function SearchBar() {

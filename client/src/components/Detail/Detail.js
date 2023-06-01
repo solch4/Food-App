@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { clearDetail, deleteRecipe, getDetail } from '../../actions/actions';
+import { clearDetail, deleteRecipe, getDetail } from '../../redux/actions/actions';
 import backArrow from '../../assets/back-arrow.svg'
 import Detail404 from '../Detail404/Detail404';
 import { detailDiv, container, backBtn, body, img, title, category, subtitle, deleteEditBtnsContainer, deleteBtn, editBtn, p, imgFavBtnContainer, favBtn } from './Detail.module.css'

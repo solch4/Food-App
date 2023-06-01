@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
-import { getDiets, getRecipes, saveScrollY, setActualPage, setFilterSelectValue, setMaxPageNumber, setMinPageNumber, setSortSelectValue } from '../../actions/actions';
+import { getDiets, getRecipes, saveScrollY, setActualPage, setFilterSelectValue, setMaxPageNumber, setMinPageNumber, setSortSelectValue } from '../../redux/actions/actions';
 import Filter from '../Filter/Filter';
 import Sort from '../Sort/Sort';
 import Pagination from '../Pagination/Pagination';
