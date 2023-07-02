@@ -156,6 +156,20 @@ export function saveScrollY (n) {
   }
 }
 
+export function addFavoriteRecipe(recipe) {
+  return {
+    type: 'ADD_FAVORITE_RECIPE',
+    payload: recipe
+  }
+}
+
+export function deleteFavoriteRecipe(recipe) {
+  return {
+    type: 'DELETE_FAVORITE_RECIPE',
+    payload: recipe
+  }
+}
+
 //pagination
 export function setActualPage (n) {
   return {

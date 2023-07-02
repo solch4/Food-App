@@ -3,6 +3,9 @@ const initialState = {
   recipes: [],
   // allRecipes es para aplicar los filtros, contiene el 100% de recipes existentes
   allRecipes: [],
+  favorites: localStorage.getItem('favorites')
+    ? JSON.parse(localStorage.getItem('favorites'))
+    : [],
   detail: [],
   loading: false,
   error: '',
@@ -141,6 +144,22 @@ function recipesReducer(state = initialState, action) {
         recipes: allRecipesCopy,
       };
   
+    case "ADD_FAVORITE_RECIPE":
+      const newFavorites = [...state.favorites, action.payload]
+      localStorage.setItem('favorites', JSON.stringify(newFavorites))
+      return {
+        ...state,
+        favorites: newFavorites
+      };
+    
+    case "DELETE_FAVORITE_RECIPE":
+      const favoritesFiltered = state.favorites.filter(recipe => recipe.id !== action.payload.id)
+      localStorage.setItem('favorites', JSON.stringify(favoritesFiltered))
+      return {
+        ...state,
+        favorites: favoritesFiltered
+      };
+    
     default:
       return { ...state };
   }
