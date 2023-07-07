@@ -1,7 +1,7 @@
 const initialState = {
   actualPage: 1,
   minPageNumber: 0,
-  maxPageNumber: 5,
+  maxPageNumber: 4,
 };
 
 function paginationReducer(state = initialState, action) {
