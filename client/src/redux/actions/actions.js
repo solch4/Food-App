@@ -6,21 +6,22 @@ export function getRecipes () {
   return async function (dispatch) {
     dispatch({ type: 'LOADING_RECIPES' })
     const res = await axios.get(`${baseUrl}/recipes`)
+    const { data } = res.data;
     dispatch({
       type: 'GET_RECIPES',
-      payload: res.data
+      payload: data
     })
   }
 }
 
 export function getDiets () {
-  return function (dispatch) {
-    axios
-      .get(`${baseUrl}/diets`)
-      .then(res => dispatch({
-        type: 'GET_DIETS', 
-        payload: res.data
-      }))
+  return async function (dispatch) {
+    const res = await axios.get(`${baseUrl}/diets`)
+    const { data } = res.data;
+    dispatch({
+      type: 'GET_DIETS', 
+      payload: data
+    })
   }
 }
 
@@ -29,14 +30,16 @@ export function searchByName (name) {
     try {
       dispatch({ type: 'LOADING_RECIPES' })
       const res = await axios.get(`${baseUrl}/recipes?name=${name}`)
+      const { data } = res.data;
       dispatch({
         type: 'SEARCH_BY_NAME_SUCCESS',
-        payload: res.data
+        payload: data
       })
     } catch (e) {
+      const { message } = e.response.data;
       dispatch({
         type: 'SEARCH_BY_NAME_ERROR',
-        payload: e.response.data
+        payload: message
       })
     }
   }
@@ -47,14 +50,16 @@ export function searchByHS (hs) {
     try {
       dispatch({ type: 'LOADING_RECIPES' })
       const res = await axios.get(`${baseUrl}/recipes?hs=${hs}`)
+      const { data } = res.data;
       dispatch({
         type: 'SEARCH_BY_HS_SUCCESS',
-        payload: res.data
+        payload: data
       })
     } catch (e) {
+      const { message } = e.response.data;
       dispatch({
         type: 'SEARCH_BY_HS_ERROR',
-        payload: e.response.data
+        payload: message
       })
     }
   }
@@ -85,14 +90,16 @@ export function getDetail (id) {
   return async function (dispatch) {
     try {
       const res = await axios.get(`${baseUrl}/recipes/${id}`)
+      const { data } = res.data;
       dispatch({
         type: 'GET_DETAIL',
-        payload: res.data
+        payload: data
       })
     } catch (e) {
+      const { message } = e.response.data;
       dispatch({
         type: 'GET_DETAIL',
-        payload: e.response.data
+        payload: message
       })
     }
   }
@@ -104,17 +111,19 @@ export function clearDetail () {
   }
 }
 
-export function createRecipe (newRecipe) {
+export function createRecipe (recipe) {
   return async function (dispatch) {
     try {
-      const { data } = await axios.post(`${baseUrl}/recipes`, newRecipe)
-      alert(data.message)
+      const res = await axios.post(`${baseUrl}/recipes`, recipe)
+      const { message, newRecipe } = res.data.data;
+      alert(message);
       dispatch({
         type: 'CREATE_RECIPE',
-        payload: data.newRecipe
+        payload: newRecipe
       })
     } catch (e) {
-      alert(e.response.data)
+      const { message } = e.response.data;
+      alert(message);
     }
   }
 }
@@ -122,14 +131,16 @@ export function createRecipe (newRecipe) {
 export function deleteRecipe (id) {
   return async function (dispatch) {
     try {
-      const { data } = await axios.delete(`${baseUrl}/recipes/${id}`)
-      alert(data.message)
+      const res = await axios.delete(`${baseUrl}/recipes/${id}`)
+      const message = res.data.data;
+      alert(message);
       dispatch({
         type: 'DELETE_RECIPE',
-        payload: data.id
+        payload: id
       })
     } catch (e) {
-      alert(e.response.data)
+      const { message } = e.response.data;
+      alert(message);
     }
   }
 }
@@ -137,14 +148,16 @@ export function deleteRecipe (id) {
 export function editRecipe (payload, id) {
   return async function (dispatch) {
     try {
-      const { data } = await axios.put(`${baseUrl}/recipes/${id}/edit`, payload)
-      alert(data.message)
+      const res = await axios.put(`${baseUrl}/recipes/${id}/edit`, payload)
+      const { message, editedRecipe } = res.data.data;
+      alert(message);
       dispatch({
         type: 'EDIT_RECIPE',
-        payload: data.editedRecipe
+        payload: editedRecipe
       })
     } catch (e) {
-      alert(e.response.data)
+      const { message } = e.response.data;
+      alert(message);
     }
   }
 }
