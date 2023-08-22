@@ -1,11 +1,12 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { filterByDiet, setActualPage, setFilterSelectValue, setMaxPageNumber, setMinPageNumber } from '../../redux/actions/actions';
+import { useDiets } from '../../hooks';
 import { filterContainer, title } from './Filter.module.css'
 
 function Filter() {
   const dispatch = useDispatch()
-  const { diets } = useSelector(state => state.diets)
+  const { diets } = useDiets();
   const { filterSelectValue } = useSelector(state => state.ux)
 
   const handleFilterByDiet = (e) => {
