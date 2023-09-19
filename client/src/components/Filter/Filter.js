@@ -13,7 +13,7 @@ function Filter() {
     dispatch(setFilterSelectValue(e.target.value))
     dispatch(setActualPage(1))
     dispatch(setMinPageNumber(0))
-    dispatch(setMaxPageNumber(5))
+    dispatch(setMaxPageNumber(4))
     dispatch(filterByDiet(e.target.value))
   }
 

@@ -8,13 +8,14 @@ function Sort({ setSort }) {
   const { sortSelectValue } = useSelector(state => state.ux)
   
   const handleSort = (e) => {
-    dispatch(setSortSelectValue(e.target.value))
+    const { value } = e.target;
+    dispatch(setSortSelectValue(value))
     dispatch(setActualPage(1))
     dispatch(setMinPageNumber(0))
-    dispatch(setMaxPageNumber(5))
-    setSort(e.target.value)
-    if (e.target.value === 'nameAtoZ' || e.target.value === 'nameZtoA') dispatch(sortByName(e.target.value))
-    if (e.target.value === 'moreHealthy' || e.target.value === 'lessHealthy') dispatch(sortByHealthScore(e.target.value))
+    dispatch(setMaxPageNumber(4))
+    setSort(value)
+    if (value === 'nameAtoZ' || value === 'nameZtoA') dispatch(sortByName(value))
+    if (value === 'moreHealthy' || value === 'lessHealthy') dispatch(sortByHealthScore(value))
   }
 
   return (
